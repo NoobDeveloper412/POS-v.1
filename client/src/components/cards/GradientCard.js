@@ -3,7 +3,7 @@ import { Card, CardBody } from "reactstrap";
 
 const GradientCard = ({ children }) => {
   return (
-    <Card className="dashboard-sq-banner justify-content-end">
+    <Card className="dashboard-sq-banner justify-content-end cards">
       <CardBody className="justify-content-end d-flex flex-column">
         {children}
       </CardBody>

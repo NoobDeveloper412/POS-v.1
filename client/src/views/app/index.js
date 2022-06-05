@@ -10,8 +10,8 @@ const Gogo = React.lazy(() =>
 const SecondMenu = React.lazy(() =>
   import(/* webpackChunkName: "viwes-second-menu" */ './second-menu')
 );
-const BlankPage = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
+const OrderDesignScreen = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-order-design-screen" */ './order-design-screen')
 );
 
 class App extends Component {
@@ -33,8 +33,8 @@ class App extends Component {
                 render={props => <SecondMenu {...props} />}
               />
               <Route
-                path={`${match.url}/blank-page`}
-                render={props => <BlankPage {...props} />}
+                path={`${match.url}/make-order`}
+                render={props => <OrderDesignScreen {...props} />}
               />
               <Redirect to="/error" />
             </Switch>
