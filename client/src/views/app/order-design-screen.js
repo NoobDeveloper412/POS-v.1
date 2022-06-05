@@ -40,7 +40,7 @@ export default class OrderDesignScreen extends Component {
               <GradientCard />
             </div>
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-4 orderContainer">
               <h1>Order</h1>
               <ListItems itemName="Leanne Graham" qty={5} price={100} />
           </div>
