@@ -41,7 +41,7 @@ module.exports = {
   "menu.todo": "Todo",
   "menu.search" :"Search",
   "menu.docs": "Docs",
-  "menu.make-order": "Make Order",
+  "menu.blank-page": "Blank Page",
 
  /* 04.Error Page */
  "pages.error-title": "Ooops... looks like an error occurred!",

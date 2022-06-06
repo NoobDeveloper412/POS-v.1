@@ -8752,7 +8752,7 @@ i.large-icon {
   justify-content: space-between;
 }
 
-.card {
+.gradientCards {
   color: white;
   float: left;
   width: calc(25% - 20px);
@@ -8762,10 +8762,10 @@ i.large-icon {
   height: 150px;
   justify-content: start;
 }
-.card p {
+.gradientCards p {
   font-size: 16px;
 }
-.cards:hover {
+.gradientCards:hover {
   cursor: pointer;
 }
 .cardContainer:after {
@@ -8774,13 +8774,13 @@ i.large-icon {
   clear: both;
 }
 @media screen and (max-width: 600px) {
-  .card {
+  .gradientCards {
     width: 100%;
   }
-  .card p {
+  .gradientCards p {
     font-size: 20px;
   }
-  .card h2 {
+  .gradientCards h2 {
     font-size: 28px;
   }
 }

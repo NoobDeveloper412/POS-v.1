@@ -33,7 +33,6 @@ export const getCurrentTime=()=>{
   return now.getHours() + ":" + now.getMinutes()
 }
 
-
 export const getDirection = () => {
   let direction = defaultDirection;
   if (localStorage.getItem("direction")) {

@@ -40,7 +40,7 @@ module.exports = {
   "menu.todo": "Notas",
   "menu.search": "Búsqueda",
   "menu.docs": "Docs",
-  "menu.make-order": "Design Order",
+  "menu.blank-page": "Blank Page",
   /* 04.Error  */
   "pages.error-title": "Vaya, parece que ha ocurrido un error!",
   "pages.error-code": "Código de error",

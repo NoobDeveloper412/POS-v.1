@@ -26,10 +26,10 @@ const data = [
     ]
   },
   {
-    id: "orderdesignscreen",
+    id: "blankpage",
     icon: "iconsminds-bucket",
-    label: "menu.make-order",
-    to: "/app/make-order"
+    label: "menu.blank-page",
+    to: "/app/blank-page"
   },
   {
     id: "docs",
