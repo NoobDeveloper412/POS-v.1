@@ -3,6 +3,7 @@ import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import AppLayout from '../../layout/AppLayout';
+import OrderDesignScreen from './order-design-screen';
 
 const Gogo = React.lazy(() =>
   import(/* webpackChunkName: "viwes-gogo" */ './gogo')
@@ -10,8 +11,8 @@ const Gogo = React.lazy(() =>
 const SecondMenu = React.lazy(() =>
   import(/* webpackChunkName: "viwes-second-menu" */ './second-menu')
 );
-const BlankPage = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
+const orderDesignScreen = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-blank-page" */ './order-design-screen')
 );
 
 class App extends Component {
@@ -34,7 +35,7 @@ class App extends Component {
               />
               <Route
                 path={`${match.url}/blank-page`}
-                render={props => <BlankPage {...props} />}
+                render={props => <OrderDesignScreen {...props} />}
               />
               <Redirect to="/error" />
             </Switch>
