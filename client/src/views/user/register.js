@@ -13,7 +13,7 @@ class Register extends Component {
     this.state = {
       email: "demo@gogo.com",
       password: "gogo123",
-      name: "Sarah Kortney"
+      name: "Sarah Kortney",
     };
   }
   onUserRegister() {
@@ -64,9 +64,11 @@ class Register extends Component {
                 <div className="d-flex justify-content-end align-items-center">
                   <Button
                     color="primary"
-                    className="btn-shadow"
                     size="lg"
                     onClick={() => this.onUserRegister()}
+                    className={`btn-shadow btn-multiple-state ${
+                      this.props.loading ? "show-spinner" : ""
+                    }`}
                   >
                     <IntlMessages id="user.register-button" />
                   </Button>
@@ -84,9 +86,6 @@ const mapStateToProps = ({ authUser }) => {
   return { user, loading };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    registerUser
-  }
-)(Register);
+export default connect(mapStateToProps, {
+  registerUser,
+})(Register);
