@@ -1,4 +1,5 @@
 
+import Axios from 'axios';
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import { auth } from '../../helpers/Firebase';
 import {
@@ -21,34 +22,34 @@ import {
 } from './actions';
 
 
-export function* watchLoginUser() {
-    yield takeEvery(LOGIN_USER, loginWithEmailPassword);
-}
+// export function* watchLoginUser() {
+//     yield takeEvery(LOGIN_USER, loginWithEmailPassword);
+// }
 
-const loginWithEmailPasswordAsync = async (email, password) =>
-    await auth.signInWithEmailAndPassword(email, password)
-        .then(authUser => authUser)
-        .catch(error => error);
+// const loginWithEmailPasswordAsync = async (email, password) =>
+//     await auth.signInWithEmailAndPassword(email, password)
+//         .then(authUser => authUser)
+//         .catch(error => error);
 
 
 
-function* loginWithEmailPassword({ payload }) {
-    const { email, password } = payload.user;
-    const { history } = payload;
-    try {
-        const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
-        if (!loginUser.message) {
-            localStorage.setItem('user_id', loginUser.user.uid);
-            yield put(loginUserSuccess(loginUser.user));
-            history.push('/');
-        } else {
-            yield put(loginUserError(loginUser.message));
-        }
-    } catch (error) {
-        yield put(loginUserError(error));
+// function* loginWithEmailPassword({ payload }) {
+//     const { email, password } = payload.user;
+//     const { history } = payload;
+//     try {
+//         const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
+//         if (!loginUser.message) {
+//             localStorage.setItem('user_id', loginUser.user.uid);
+//             yield put(loginUserSuccess(loginUser.user));
+//             history.push('/');
+//         } else {
+//             yield put(loginUserError(loginUser.message));
+//         }
+//     } catch (error) {
+//         yield put(loginUserError(error));
 
-    }
-}
+//     }
+// }
 
 
 export function* watchRegisterUser() {
@@ -148,6 +149,17 @@ function* resetPassword({ payload }) {
     }
 }
 
+export const watchLoginUser = async (authtoken) => {
+    return await Axios.post(
+      `${process.env.REACT_APP_API}/login`,
+      {},
+      {
+        headers: {
+          authtoken,
+        },
+      }
+    );
+  };
 export default function* rootSaga() {
     yield all([
         fork(watchLoginUser),
