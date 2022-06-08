@@ -1,6 +1,6 @@
 import React from "react";
-import AddIcon from "@material-ui/icons/Add";
-import MinusIcon from "@material-ui/icons/Minimize";
+// import AddIcon from "@material-ui/icons/Add";
+// import MinusIcon from "@material-ui/icons/Minimize";
 
 function ListItems(props) {
   return (
@@ -11,12 +11,12 @@ function ListItems(props) {
         <small>No. of item: {props.qty}</small>
       </div>
       <div className="listItem__functionButton">
-        <button className="button2">
+        {/* <button className="button2">
           <AddIcon />
         </button>
         <button className="button1">
           <MinusIcon />
-        </button>
+        </button> */}
       </div>
     </div>
   );

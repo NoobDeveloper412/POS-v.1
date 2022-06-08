@@ -136,7 +136,7 @@ function Add() {
                 role="button"
               >
                 <span class="jss179">
-                  <input type="file" onChange={handleChange}  className="btn-primary" />
+                  <input type="file" onChange={handleChange}  className="btn-primary " />
                   <svg
                     class="jss111 jss160"
                     focusable="false"
