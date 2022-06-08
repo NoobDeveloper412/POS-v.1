@@ -2,18 +2,12 @@ import Axios from "axios";
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 import { auth } from "../../helpers/Firebase";
 import {
-  LOGIN_USER,
-  REGISTER_USER,
   LOGOUT_USER,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
 } from "../actions";
 
 import {
-  loginUserSuccess,
-  loginUserError,
-  registerUserSuccess,
-  registerUserError,
   forgotPasswordSuccess,
   forgotPasswordError,
   resetPasswordSuccess,
@@ -176,7 +170,7 @@ export default function* rootSaga() {
   yield all([
     fork(watchLoginUser),
     fork(watchLogoutUser),
-    fork(watchRegisterUser),
+    // fork(watchRegisterUser),
     fork(watchForgotPassword),
     fork(watchResetPassword),
   ]);

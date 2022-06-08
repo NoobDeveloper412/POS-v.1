@@ -8,9 +8,9 @@ const data = [
       {
         icon: "simple-icon-paper-plane",
         label: "menu.start",
-        to: "/app/gogo/start"
-      }     
-    ]
+        to: "/app/gogo/start",
+      },
+    ],
   },
   // {
   //   id: "secondmenu",
@@ -28,15 +28,20 @@ const data = [
   {
     id: "order-design-screen",
     icon: "iconsminds-bucket",
-    label: "menu.blank-page",
-    to: "/app/blank-page"
+    label: "menu.order-design-screen",
+    to: "/app/order-design-screen",
   },
-  // {
-  //   id: "docs",
-  //   icon: "iconsminds-library",
-  //   label: "menu.docs",
-  //   to: "https://gogo-react-docs.coloredstrategies.com/",
-  //   newWindow:true
-  // }
+  {
+    id: "add-product",
+    icon: "iconsminds-add-cart",
+    label: "menu.add-product",
+    to: "/products/add",
+  },
+  {
+    id: "view-product",
+    icon: "iconsminds-shopping-cart",
+    label: "menu.view-product",
+    to: "/products/view",
+  },
 ];
 export default data;

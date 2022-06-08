@@ -74,44 +74,44 @@ export const logout = () => (dispatch) => {
   document.location.href = "/login";
 };
 
-export const register = (name, email, password) => async (dispatch) => {
-  try {
-    dispatch({
-      type: USER_REGISTER_REQUEST,
-    });
+// export const register = (name, email, password) => async (dispatch) => {
+//   try {
+//     dispatch({
+//       type: USER_REGISTER_REQUEST,
+//     });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+//     const config = {
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     };
 
-    const { data } = await Axios.post(
-      `${process.env.REACT_APP_API}/register`,
-      { name, email, password },
-      config
-    );
-    dispatch({
-      type: USER_REGISTER_SUCCESS,
-      payload: data,
-    });
+//     const { data } = await Axios.post(
+//       `${process.env.REACT_APP_API}/register`,
+//       { name, email, password },
+//       config
+//     );
+//     dispatch({
+//       type: USER_REGISTER_SUCCESS,
+//       payload: data,
+//     });
 
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data,
-    });
+//     dispatch({
+//       type: USER_LOGIN_SUCCESS,
+//       payload: data,
+//     });
 
-    localStorage.setItem("userInfo", JSON.stringify(data));
-  } catch (error) {
-    dispatch({
-      type: USER_REGISTER_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+//     localStorage.setItem("userInfo", JSON.stringify(data));
+//   } catch (error) {
+//     dispatch({
+//       type: USER_REGISTER_FAIL,
+//       payload:
+//         error.response && error.response.data.message
+//           ? error.response.data.message
+//           : error.message,
+//     });
+//   }
+// };
 
 export const loginUser = (user, history) => ({
   type: LOGIN_USER,

@@ -16,9 +16,9 @@ class Register extends Component {
       name: "Sarah Kortney",
     };
   }
-  onUserRegister() {
+  onUserRegister(values) {
     if (this.state.email !== "" && this.state.password !== "") {
-      this.props.history.push("/");
+      this.props.registerUser(values, this.props.history);
     }
   }
 
@@ -45,7 +45,7 @@ class Register extends Component {
               <CardTitle className="mb-4">
                 <IntlMessages id="user.register" />
               </CardTitle>
-              <Form>
+              <Form onSubmit={this.onUserRegister}>
                 <Label className="form-group has-float-label mb-4">
                   <Input type="name" defaultValue={this.state.name} />
                   <IntlMessages id="user.fullname" />
@@ -65,7 +65,6 @@ class Register extends Component {
                   <Button
                     color="primary"
                     size="lg"
-                    onClick={() => this.onUserRegister()}
                     className={`btn-shadow btn-multiple-state ${
                       this.props.loading ? "show-spinner" : ""
                     }`}

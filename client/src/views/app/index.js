@@ -34,9 +34,10 @@ class App extends Component {
                 render={props => <SecondMenu {...props} />}
               />
               <Route
-                path={`${match.url}/blank-page`}
+                path={`${match.url}/order-design-screen`}
                 render={props => <OrderDesignScreen {...props} />}
               />
+          
               <Redirect to="/error" />
             </Switch>
           </Suspense>
