@@ -503,13 +503,16 @@ export default function Pagination() {
   });
 
   return (
-    <MDBDataTableV5
-      hover
-      entriesOptions={[5, 20, 25]}
-      entries={5}
-      pagesAmount={4}
-      data={datatable}
-      fullPagination
-    />
+    <div className="viewProduct__container">
+      <h1>Product List</h1>
+      <MDBDataTableV5
+        hover
+        entriesOptions={[5, 20, 25]}
+        entries={5}
+        pagesAmount={4}
+        data={datatable}
+        fullPagination
+      />
+    </div>
   );
 }
