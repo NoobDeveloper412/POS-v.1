@@ -1,15 +1,14 @@
 import { combineReducers } from "redux";
 import settings from "./settings/reducer";
 import menu from "./menu/reducer";
-import { userRegisterReducer, userLoginReducer } from "./auth/reducer";
-import authUser  from "./auth/reducer";
+import authUser from "./auth/reducer";
+import { userLoginReducer } from "./auth/reducer";
 
 const reducers = combineReducers({
   menu,
   settings,
-  userLoginReducer,
   authUser,
-  userRegisterReducer,
+  userLoginReducer,
 });
 
 export default reducers;

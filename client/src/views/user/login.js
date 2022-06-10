@@ -6,25 +6,31 @@ import { connect } from "react-redux";
 import { NotificationManager } from "../../components/common/react-notifications";
 import { Formik, Form, Field } from "formik";
 
-import { loginUser } from "../../redux/actions";
+import { login, loginUser, loginUserAction } from "../../redux/actions";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import IntlMessages from "../../helpers/IntlMessages";
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "demo@gogo.com",
-      password: "gogo123"
+      email: "Ali@gmail.com",
+      password: "alialiali",
     };
   }
 
-  onUserLogin = (values) => {
-    if (!this.props.loading) {
-      if (values.email !== "" && values.password !== "") {
-        this.props.loginUser(values, this.props.history);
-      }
-    }
-  }
+  onHandleLogin = (event) => {
+    // event.preventDefault();
+
+    let email = this.state.email;
+    let password = this.state.password;
+
+    const data = {
+      email,
+      password,
+    };
+
+    this.props.dispatch(loginUserAction(data));
+  };
 
   validateEmail = (value) => {
     let error;
@@ -34,7 +40,7 @@ class Login extends Component {
       error = "Invalid email address";
     }
     return error;
-  }
+  };
 
   validatePassword = (value) => {
     let error;
@@ -44,7 +50,7 @@ class Login extends Component {
       error = "Value must be longer than 3 characters";
     }
     return error;
-  }
+  };
 
   componentDidUpdate() {
     if (this.props.error) {
@@ -54,17 +60,31 @@ class Login extends Component {
         3000,
         null,
         null,
-        ''
+        ""
       );
     }
   }
 
   render() {
     const { password, email } = this.state;
-    const initialValues = {email,password};
+    const initialValues = { email, password };
+
+    let isSuccess, message;
+
+    // if (this.props.response.login.hasOwnProperty("response")) {
+    //   isSuccess = this.props.response.login.response.success;
+    //   message = this.props.response.login.response.message;
+
+    //   if (isSuccess) {
+    //     localStorage.removeItem("token");
+    //     localStorage.setItem("token", this.props.response.login.response.token);
+    //   }
+    // }
 
     return (
       <Row className="h-100">
+        {!isSuccess ? <div>{message}</div> : History.push("dashboard")}
+
         <Colxx xxs="12" md="10" className="mx-auto my-auto">
           <Card className="auth-card">
             <div className="position-relative image-side ">
@@ -89,7 +109,8 @@ class Login extends Component {
 
               <Formik
                 initialValues={initialValues}
-                onSubmit={this.onUserLogin}>
+                onSubmit={(event) => this.onHandleLogin(event)}
+              >
                 {({ errors, touched }) => (
                   <Form className="av-tooltip tooltip-label-bottom">
                     <FormGroup className="form-group has-float-label">
@@ -129,7 +150,9 @@ class Login extends Component {
                       </NavLink>
                       <Button
                         color="primary"
-                        className={`btn-shadow btn-multiple-state ${this.props.loading ? "show-spinner" : ""}`}
+                        className={`btn-shadow btn-multiple-state ${
+                          this.props.loading ? "show-spinner" : ""
+                        }`}
                         size="lg"
                       >
                         <span className="spinner d-inline-block">
@@ -137,11 +160,11 @@ class Login extends Component {
                           <span className="bounce2" />
                           <span className="bounce3" />
                         </span>
-                        <span className="label"><IntlMessages id="user.login-button" /></span>
+                        <span className="label">
+                          <IntlMessages id="user.login-button" />
+                        </span>
                       </Button>
                     </div>
-
-
                   </Form>
                 )}
               </Formik>
@@ -157,9 +180,4 @@ const mapStateToProps = ({ authUser }) => {
   return { user, loading, error };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    loginUser
-  }
-)(Login);
+export default connect(mapStateToProps)(Login);

@@ -506,7 +506,7 @@ export default function Pagination() {
     <div className="viewProduct__container">
       <h1>Product List</h1>
       <MDBDataTableV5
-      // pagesAmount={10}
+       
         hover
         entriesOptions={[5, 20, 25]}
         entries={10}

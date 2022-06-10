@@ -5,7 +5,7 @@ const GradientCard = ({ imgSrc, children }) => {
   console.log(imgSrc);
   return (
     <Card
-      className="justify-content-end gradientCards dashboard-sq-banner "
+      className="justify-content-end gradientCards "
       style={{ backgroundImage: `url('${imgSrc}')` }}
     >
       <CardBody className="justify-content-end d-flex flex-column">

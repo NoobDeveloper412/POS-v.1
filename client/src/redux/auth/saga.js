@@ -1,21 +1,25 @@
-import Axios from "axios";
-import { all, call, fork, put, takeEvery } from "redux-saga/effects";
+import {  call, put, takeEvery } from "redux-saga/effects";
 import { auth } from "../../helpers/Firebase";
 import {
   LOGOUT_USER,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_ERROR,
 } from "../actions";
+import { loginUserService } from "../services/authenticationService";
 
 import {
   forgotPasswordSuccess,
   forgotPasswordError,
   resetPasswordSuccess,
   resetPasswordError,
+  loginUserError,
+  loginUserSuccess,
 } from "./actions";
 
 // export function* watchLoginUser() {
-//     yield takeEvery(LOGIN_USER, loginWithEmailPassword);
+//     yield takeEvery(USER_LOGIN_REQUEST, loginWithEmailPassword);
 // }
 
 // const loginWithEmailPasswordAsync = async (email, password) =>
@@ -67,6 +71,17 @@ import {
 //         yield put(registerUserError(error));
 //     }
 // }
+
+export function* loginSaga(payload) {
+  try {
+    const response = yield call(loginUserService, payload);
+    yield [
+      put({ type: LOGIN_USER_SUCCESS, response })
+    ];
+  } catch(error) {
+    yield put({ type: LOGIN_USER_ERROR, error })
+  }
+}
 
 export function* watchLogoutUser() {
   yield takeEvery(LOGOUT_USER, logout);
@@ -142,36 +157,13 @@ function* resetPassword({ payload }) {
   }
 }
 
-export const watchLoginUser = async (authtoken) => {
-  return await Axios.post(
-    `${process.env.REACT_APP_API}/login`,
-    {},
-    {
-      headers: {
-        authtoken,
-      },
-    }
-  );
-};
 
-export const watchRegisterUser = async (authtoken) => {
-  return await Axios.post(
-    `${process.env.REACT_APP_API}/register`,
-    {},
-    {
-      headers: {
-        authtoken,
-      },
-    }
-  );
-};
-
-export default function* rootSaga() {
-  yield all([
-    fork(watchLoginUser),
-    fork(watchLogoutUser),
-    // fork(watchRegisterUser),
-    fork(watchForgotPassword),
-    fork(watchResetPassword),
-  ]);
-}
+// export default function* rootSaga() {
+//   yield all([
+//     fork(watchLoginUser),
+//     fork(watchLogoutUser),
+//     // fork(watchRegisterUser),
+//     fork(watchForgotPassword),
+//     fork(watchResetPassword),
+//   ]);
+// }
