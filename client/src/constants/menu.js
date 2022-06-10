@@ -2,13 +2,13 @@ const data = [
   {
     id: "gogo",
     icon: "iconsminds-air-balloon-1",
-    label: "menu.gogo",
+    label: "menu.dashboard",
     to: "/app/gogo",
     subs: [
       {
         icon: "simple-icon-paper-plane",
-        label: "menu.start",
-        to: "/app/gogo/start",
+        label: "menu.report",
+        to: "/app/gogo/report",
       },
     ],
   },

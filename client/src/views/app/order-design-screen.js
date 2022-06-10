@@ -18,8 +18,9 @@ export default class OrderDesignScreen extends Component {
               <h1>Products</h1>
               <CustomInputField placeholder="Search for products..." />
             </div>
-            <div class="cardContainer">
+            <div className="cardContainer">
               <GradientCard
+                imgSrc="https://smarative.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1562657549-7dfcbd4a97f8%3Fcrop%3Dentropy%26cs%3Dtinysrgb%26fit%3Dmax%26fm%3Djpg%26ixid%3DMnwxMTc3M3wwfDF8c2VhcmNofDN8fGJvcmRlcnxlbnwwfHx8fDE2MjAxNzAwMTM%26ixlib%3Drb-1.2.1%26q%3D80%26w%3D2000&w=1920&q=75"
                 children={
                   <div class="orderDesignScreen__cardText">
                     <h2>Second card</h2>
@@ -27,6 +28,7 @@ export default class OrderDesignScreen extends Component {
                   </div>
                 }
               />
+
               <GradientCard />
               <GradientCard />
               <GradientCard />
@@ -41,8 +43,8 @@ export default class OrderDesignScreen extends Component {
             </div>
           </div>
           <div className="col-sm-4 orderContainer">
-              <h1>Order</h1>
-              <ListItems itemName="Leanne Graham" qty={5} price={100} />
+            <h1>Order</h1>
+            <ListItems itemName="Leanne Graham" qty={5} price={100} />
           </div>
         </div>
       </div>

@@ -6106,9 +6106,6 @@ input:-webkit-autofill {
   border-color: $separator-color;
 }
 
-.ck.ck-toolbar {
-  background: !important;
-}
 
 .RichEditor-root {
   background: $foreground-color;
@@ -8737,9 +8734,7 @@ i.large-icon {
 }
 
 // Custom Styling for the Order Design Screen
-.orderDesignScreen__mainContainer {
-  background: whitesmoke;
-}
+
 .orderDesignScreen__mainHeading > h1 {
   position: sticky;
   position: -webkit-sticky;
@@ -8758,6 +8753,7 @@ i.large-icon {
   padding: 10px;
   border-radius: 10px;
   margin: 10px;
+  background-size: cover;
   height: 150px;
   justify-content: start;
 }
@@ -8950,4 +8946,9 @@ i.large-icon {
 .input_div{
   display: flex;
   flex-direction: column;
+}
+.report__row{
+  display: flex;
+  height: 60vh;
+  width: 100%;
 }
