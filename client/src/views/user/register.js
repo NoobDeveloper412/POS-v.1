@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Row, Card, CardTitle, Form, Label, Input, Button } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { registerUser } from "../../redux/actions";
+import { registerUserAction } from "../../redux/actions";
 
 import IntlMessages from "../../helpers/IntlMessages";
 import { Colxx } from "../../components/common/CustomBootstrap";
@@ -11,16 +11,29 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "demo@gogo.com",
-      password: "gogo123",
-      name: "Sarah Kortney",
+      email: "demo1@gmail.com",
+      password: "demo1demo1",
+      name: "demo1demo1",
+      password_confirmation: "demo1demo1",
     };
   }
-  onUserRegister(values) {
-    if (this.state.email !== "" && this.state.password !== "") {
-      this.props.registerUser(values, this.props.history);
-    }
-  }
+  onHandleRegister = (event) => {
+    // event.preventDefault();
+
+    let email = this.state.email;
+    let password = this.state.password;
+    let name = this.state.name;
+    let password_confirmation = this.state.password_confirmation;
+
+    const data = {
+      email,
+      password,
+      name,
+      password_confirmation,
+    };
+
+    this.props.dispatch(registerUserAction(data));
+  };
 
   render() {
     return (
@@ -45,7 +58,7 @@ class Register extends Component {
               <CardTitle className="mb-4">
                 <IntlMessages id="user.register" />
               </CardTitle>
-              <Form onSubmit={this.onUserRegister}>
+              <Form onSubmit={this.onHandleRegister}>
                 <Label className="form-group has-float-label mb-4">
                   <Input type="name" defaultValue={this.state.name} />
                   <IntlMessages id="user.fullname" />
@@ -85,6 +98,4 @@ const mapStateToProps = ({ authUser }) => {
   return { user, loading };
 };
 
-export default connect(mapStateToProps, {
-  registerUser,
-})(Register);
+export default connect(mapStateToProps)(Register);

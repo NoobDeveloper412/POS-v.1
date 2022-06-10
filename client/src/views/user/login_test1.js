@@ -1,37 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Colxx } from "../../components/common/CustomBootstrap";
-import { Button, Card, CardTitle, Form, FormGroup, Label, Row } from "reactstrap";
-import IntlMessages from "../../helpers/IntlMessages";
-import { Field, Formik } from "formik";
-import { login } from "../../redux/auth/actions";
+import React from "react";
 
-const LoginScreen = ({ location, history }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function login_test1() {
+  const onHandleLogin = (event) => {
+    // event.preventDefault();
 
-  const dispatch = useDispatch();
+    let email = email;
+    let password = password;
 
-  const userLogin = useSelector((state) => state.authUser)
-  const { loading, user } = userLogin
-  console.log(userLogin)
+    const data = {
+      email,
+      password,
+    };
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
-
-  useEffect(() => {
-    if (user) {
-      history.push(redirect);
-    }
-  }, [history, user, redirect]);
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(login(email, password));
-    console.log(`${process.env.REACT_APP_API}/register`);
+    this.props.dispatch(loginUserAction(data));
   };
-
-  const initialValues = { email, password };
 
   const validateEmail = (value) => {
     let error;
@@ -52,8 +34,11 @@ const LoginScreen = ({ location, history }) => {
     }
     return error;
   };
+
   return (
     <Row className="h-100">
+      {!isSuccess ? <div>{message}</div> : History.push("dashboard")}
+
       <Colxx xxs="12" md="10" className="mx-auto my-auto">
         <Card className="auth-card">
           <div className="position-relative image-side ">
@@ -62,7 +47,7 @@ const LoginScreen = ({ location, history }) => {
               Please use your credentials to login.
               <br />
               If you are not a member, please{" "}
-              <NavLink to={`/register`} className="white">
+              <NavLink to={`/user/register`} className="white">
                 register
               </NavLink>
               .
@@ -76,7 +61,7 @@ const LoginScreen = ({ location, history }) => {
               <IntlMessages id="user.login-title" />
             </CardTitle>
 
-            <Formik initialValues={initialValues} >
+            <Formik initialValues={initialValues} onSubmit={submitHandler}>
               {({ errors, touched }) => (
                 <Form className="av-tooltip tooltip-label-bottom">
                   <FormGroup className="form-group has-float-label">
@@ -86,7 +71,7 @@ const LoginScreen = ({ location, history }) => {
                     <Field
                       className="form-control"
                       name="email"
-                      validate={validateEmail}
+                      validate={this.validateEmail}
                     />
                     {errors.email && touched.email && (
                       <div className="invalid-feedback d-block">
@@ -102,7 +87,7 @@ const LoginScreen = ({ location, history }) => {
                       className="form-control"
                       type="password"
                       name="password"
-                      validate={validatePassword}
+                      validate={this.validatePassword}
                     />
                     {errors.password && touched.password && (
                       <div className="invalid-feedback d-block">
@@ -117,10 +102,9 @@ const LoginScreen = ({ location, history }) => {
                     <Button
                       color="primary"
                       className={`btn-shadow btn-multiple-state ${
-                        loading ? "show-spinner" : ""
+                        this.props.loading ? "show-spinner" : ""
                       }`}
                       size="lg"
-                      onClick={submitHandler}
                     >
                       <span className="spinner d-inline-block">
                         <span className="bounce1" />
@@ -140,6 +124,6 @@ const LoginScreen = ({ location, history }) => {
       </Colxx>
     </Row>
   );
-};
+}
 
-export default LoginScreen;
+export default login_test1;

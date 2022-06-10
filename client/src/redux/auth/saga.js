@@ -5,17 +5,17 @@ import {
   FORGOT_PASSWORD,
   RESET_PASSWORD,
   LOGIN_USER_SUCCESS,
-  LOGIN_USER_ERROR,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_FAIL,
+  REGISTER_USER_ERROR
 } from "../actions";
-import { loginUserService } from "../services/authenticationService";
+import { loginUserService, registerUserService } from "../services/authenticationService";
 
 import {
   forgotPasswordSuccess,
   forgotPasswordError,
   resetPasswordSuccess,
   resetPasswordError,
-  loginUserError,
-  loginUserSuccess,
 } from "./actions";
 
 // export function* watchLoginUser() {
@@ -79,7 +79,19 @@ export function* loginSaga(payload) {
       put({ type: LOGIN_USER_SUCCESS, response })
     ];
   } catch(error) {
-    yield put({ type: LOGIN_USER_ERROR, error })
+    yield put({ type: REGISTER_USER_ERROR, error })
+  }
+}
+
+
+export function* registerSaga(payload) {
+  try {
+    const response = yield call(registerUserService, payload);
+    yield [
+      put({ type: REGISTER_USER_SUCCESS, response })
+    ];
+  } catch(error) {
+    yield put({ type: REGISTER_USER_ERROR, error });
   }
 }
 
