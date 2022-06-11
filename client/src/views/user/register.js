@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Row, Card, CardTitle, Form, Label, Input, Button } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { registerUserAction } from "../../redux/actions";
+import { registerUser } from "../../redux/actions";
 
 import IntlMessages from "../../helpers/IntlMessages";
 import { Colxx } from "../../components/common/CustomBootstrap";
@@ -11,29 +11,16 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "demo1@gmail.com",
-      password: "demo1demo1",
-      name: "demo1demo1",
-      password_confirmation: "demo1demo1",
+      email: "demo@gogo.com",
+      password: "gogo123",
+      name: "Sarah Kortney"
     };
   }
-  onHandleRegister = (event) => {
-    // event.preventDefault();
-
-    let email = this.state.email;
-    let password = this.state.password;
-    let name = this.state.name;
-    let password_confirmation = this.state.password_confirmation;
-
-    const data = {
-      email,
-      password,
-      name,
-      password_confirmation,
-    };
-
-    this.props.dispatch(registerUserAction(data));
-  };
+  onUserRegister() {
+    if (this.state.email !== "" && this.state.password !== "") {
+      this.props.history.push("/");
+    }
+  }
 
   render() {
     return (
@@ -58,7 +45,7 @@ class Register extends Component {
               <CardTitle className="mb-4">
                 <IntlMessages id="user.register" />
               </CardTitle>
-              <Form onSubmit={this.onHandleRegister}>
+              <Form>
                 <Label className="form-group has-float-label mb-4">
                   <Input type="name" defaultValue={this.state.name} />
                   <IntlMessages id="user.fullname" />
@@ -77,10 +64,9 @@ class Register extends Component {
                 <div className="d-flex justify-content-end align-items-center">
                   <Button
                     color="primary"
+                    className="btn-shadow"
                     size="lg"
-                    className={`btn-shadow btn-multiple-state ${
-                      this.props.loading ? "show-spinner" : ""
-                    }`}
+                    onClick={() => this.onUserRegister()}
                   >
                     <IntlMessages id="user.register-button" />
                   </Button>
@@ -98,4 +84,9 @@ const mapStateToProps = ({ authUser }) => {
   return { user, loading };
 };
 
-export default connect(mapStateToProps)(Register);
+export default connect(
+  mapStateToProps,
+  {
+    registerUser
+  }
+)(Register);

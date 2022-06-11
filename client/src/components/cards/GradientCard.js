@@ -1,13 +1,9 @@
 import React from "react";
 import { Card, CardBody } from "reactstrap";
 
-const GradientCard = ({ imgSrc, children }) => {
-  console.log(imgSrc);
+const GradientCard = ({ children }) => {
   return (
-    <Card
-      className="justify-content-end gradientCards "
-      style={{ backgroundImage: `url('${imgSrc}')` }}
-    >
+    <Card className="dashboard-sq-banner justify-content-end">
       <CardBody className="justify-content-end d-flex flex-column">
         {children}
       </CardBody>

@@ -1,5 +1,3 @@
-import Axios from "axios";
-
 import {
   LOGIN_USER,
   LOGIN_USER_SUCCESS,
@@ -14,99 +12,12 @@ import {
   RESET_PASSWORD,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_ERROR,
-  USER_LOGIN_REQUEST,
-  USER_LOGIN_SUCCESS,
-  USER_LOGIN_FAIL,
-  USER_REGISTER_FAIL,
-  USER_REGISTER_SUCCESS,
-  USER_REGISTER_REQUEST,
 } from "../actions";
 
-
-export const login = (email, password) => async (dispatch) => {
-  try {
-    dispatch({
-      type: USER_LOGIN_REQUEST,
-    })
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-
-    const { data } = await Axios.post(
-      'http://localhost:8000/login',
-      { email, password },
-      config
-    )
-
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data,
-    })
-
-    localStorage.setItem('userInfo', JSON.stringify(data))
-  } catch (error) {
-    dispatch({
-      type: USER_LOGIN_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
-  }
-}
-
-
-export const register = (name, email, password, password_confirmation) => async (dispatch) => {
-  try {
-    dispatch({
-      type: USER_REGISTER_REQUEST,
-    })
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-
-    const { data } = await Axios.post(
-      '/api/users',
-      { name, email, password , password_confirmation},
-      config
-    )
-
-    dispatch({
-      type: USER_REGISTER_SUCCESS,
-      payload: data,
-    })
-
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data,
-    })
-
-    localStorage.setItem('userInfo', JSON.stringify(data))
-  } catch (error) {
-    dispatch({
-      type: USER_REGISTER_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
-  }
-}
-
-
-export const registerUserAction = (user) => {
-  return {
-    type: REGISTER_USER,
-    user
-  }
-};
-
+export const loginUser = (email, password) => ({
+  type: LOGIN_USER,
+  payload: { email: email, password: password },
+});
 export const loginUserSuccess = (user) => ({
   type: LOGIN_USER_SUCCESS,
   payload: user,

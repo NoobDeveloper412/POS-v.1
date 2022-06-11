@@ -1,26 +1,55 @@
-import {  call, put, takeEvery } from "redux-saga/effects";
+import Axios from "axios";
+import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 import { auth } from "../../helpers/Firebase";
 import {
+  LOGIN_USER,
+  REGISTER_USER,
   LOGOUT_USER,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
-  LOGIN_USER_SUCCESS,
-  REGISTER_USER_SUCCESS,
-  REGISTER_USER_FAIL,
-  REGISTER_USER_ERROR
 } from "../actions";
-import { loginUserService, registerUserService } from "../services/authenticationService";
 
 import {
+  loginUserSuccess,
+  loginUserError,
+  registerUserSuccess,
+  registerUserError,
   forgotPasswordSuccess,
   forgotPasswordError,
   resetPasswordSuccess,
   resetPasswordError,
 } from "./actions";
 
-// export function* watchLoginUser() {
-//     yield takeEvery(USER_LOGIN_REQUEST, loginWithEmailPassword);
-// }
+export function* watchLoginUser() {
+  yield takeEvery(LOGIN_USER, loginWithEmailPassword);
+}
+
+const loginWithEmailPassword = async (data) => {
+  try {
+    const { email, password } = data.payload;
+    console.log(email, password);
+    const response = await Axios.post(
+      `http://localhost:8000/login`,
+      { email: email, password: password },
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Expose-Headers": "Content-Length, X-JSON",
+          "Access-Control-Allow-Methods":
+            "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "*",
+        },
+      }
+    );
+    console.log(response)
+    if (response.status === 200 || response.status === 204) {
+      console.log("Logged in successfully.");
+    }
+  } catch (error) {
+    console.log(error.response.data.message);
+    loginUserError(error.response.data.message);
+  }
+};
 
 // const loginWithEmailPasswordAsync = async (email, password) =>
 //     await auth.signInWithEmailAndPassword(email, password)
@@ -45,55 +74,55 @@ import {
 //     }
 // }
 
-// export function* watchRegisterUser() {
-//     yield takeEvery(REGISTER_USER, registerWithEmailPassword);
-// }
+export function* watchRegisterUser() {
+  yield takeEvery(REGISTER_USER, registerWithEmailPassword);
+}
+
+const registerWithEmailPassword = async (
+  email,
+  password,
+  name = "123456789",
+  password_confirmation = "123456789"
+) => {
+  console.log("Hello I am here");
+  return await Axios.post(
+    `http://localhost:8000/register`,
+    { name, email, password, password_confirmation },
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    }
+  );
+};
 
 // const registerWithEmailPasswordAsync = async (email, password) =>
-//     await auth.createUserWithEmailAndPassword(email, password)
-//         .then(authUser => authUser)
-//         .catch(error => error);
+//   await auth
+//     .createUserWithEmailAndPassword(email, password)
+//     .then((authUser) => authUser)
+//     .catch((error) => error);
 
 // function* registerWithEmailPassword({ payload }) {
-//     const { email, password } = payload.user;
-//     const { history } = payload
-//     try {
-//         const registerUser = yield call(registerWithEmailPasswordAsync, email, password);
-//         if (!registerUser.message) {
-//             localStorage.setItem('user_id', registerUser.user.uid);
-//             yield put(registerUserSuccess(registerUser));
-//             history.push('/')
-//         } else {
-//             yield put(registerUserError(registerUser.message));
-
-//         }
-//     } catch (error) {
-//         yield put(registerUserError(error));
+//   const { email, password } = payload.user;
+//   const { history } = payload;
+//   try {
+//     const registerUser = yield call(
+//       registerWithEmailPasswordAsync,
+//       email,
+//       password
+//     );
+//     if (!registerUser.message) {
+//       localStorage.setItem("user_id", registerUser.user.uid);
+//       yield put(registerUserSuccess(registerUser));
+//       history.push("/");
+//     } else {
+//       yield put(registerUserError(registerUser.message));
 //     }
+//   } catch (error) {
+//     yield put(registerUserError(error));
+//   }
 // }
-
-export function* loginSaga(payload) {
-  try {
-    const response = yield call(loginUserService, payload);
-    yield [
-      put({ type: LOGIN_USER_SUCCESS, response })
-    ];
-  } catch(error) {
-    yield put({ type: REGISTER_USER_ERROR, error })
-  }
-}
-
-
-export function* registerSaga(payload) {
-  try {
-    const response = yield call(registerUserService, payload);
-    yield [
-      put({ type: REGISTER_USER_SUCCESS, response })
-    ];
-  } catch(error) {
-    yield put({ type: REGISTER_USER_ERROR, error });
-  }
-}
 
 export function* watchLogoutUser() {
   yield takeEvery(LOGOUT_USER, logout);
@@ -169,13 +198,12 @@ function* resetPassword({ payload }) {
   }
 }
 
-
-// export default function* rootSaga() {
-//   yield all([
-//     fork(watchLoginUser),
-//     fork(watchLogoutUser),
-//     // fork(watchRegisterUser),
-//     fork(watchForgotPassword),
-//     fork(watchResetPassword),
-//   ]);
-// }
+export default function* rootSaga() {
+  yield all([
+    fork(watchLoginUser),
+    fork(watchLogoutUser),
+    fork(watchRegisterUser),
+    fork(watchForgotPassword),
+    fork(watchResetPassword),
+  ]);
+}
