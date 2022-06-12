@@ -8,35 +8,42 @@ const data = [
       {
         icon: "simple-icon-paper-plane",
         label: "menu.start",
-        to: "/app/gogo/start"
-      }     
-    ]
+        to: "/app/gogo/start",
+      },
+    ],
   },
   {
-    id: "secondmenu",
-    icon: "iconsminds-three-arrow-fork",
-    label: "menu.second-menu",
-    to: "/app/second-menu",
+    id: "order",
+    icon: "iconsminds-bucket",
+    label: "menu.order",
+    to: "/order/view",
     subs: [
       {
         icon: "simple-icon-paper-plane",
-        label: "menu.second",
-        to: "/app/second-menu/second"
-      }
-    ]
+        label: "menu.createOrder",
+        to: "/order/create",
+      },
+    ],
   },
   {
-    id: "blankpage",
-    icon: "iconsminds-bucket",
-    label: "menu.blank-page",
-    to: "/app/blank-page"
+    id: "product",
+    icon: "iconsminds-shopping-cart",
+    label: "menu.product",
+    to: "/product/view",
+    subs: [
+      {
+        icon: "iconsminds-add-cart",
+        label: "menu.addProduct",
+        to: "/product/add",
+      },
+    ],
   },
   {
     id: "docs",
     icon: "iconsminds-library",
     label: "menu.docs",
     to: "https://gogo-react-docs.coloredstrategies.com/",
-    newWindow:true
-  }
+    newWindow: true,
+  },
 ];
 export default data;

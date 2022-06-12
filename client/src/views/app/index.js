@@ -10,9 +10,6 @@ const Gogo = React.lazy(() =>
 const SecondMenu = React.lazy(() =>
   import(/* webpackChunkName: "viwes-second-menu" */ './second-menu')
 );
-const BlankPage = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
-);
 
 class App extends Component {
   render() {
@@ -31,10 +28,6 @@ class App extends Component {
               <Route
                 path={`${match.url}/second-menu`}
                 render={props => <SecondMenu {...props} />}
-              />
-              <Route
-                path={`${match.url}/blank-page`}
-                render={props => <BlankPage {...props} />}
               />
               <Redirect to="/error" />
             </Switch>

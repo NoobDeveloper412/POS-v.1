@@ -18,9 +18,9 @@ export const loginUser = (email, password) => ({
   type: LOGIN_USER,
   payload: { email: email, password: password },
 });
-export const loginUserSuccess = (user) => ({
+export const loginUserSuccess = (authUser) => ({
   type: LOGIN_USER_SUCCESS,
-  payload: user,
+  payload: authUser,
 });
 export const loginUserError = (message) => ({
   type: LOGIN_USER_ERROR,

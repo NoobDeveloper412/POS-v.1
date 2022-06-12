@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { useHistory } from "react-router-dom";
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 import { auth } from "../../helpers/Firebase";
 import {
@@ -7,6 +8,7 @@ import {
   LOGOUT_USER,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
+  LOGIN_USER_SUCCESS,
 } from "../actions";
 
 import {
@@ -24,6 +26,7 @@ export function* watchLoginUser() {
   yield takeEvery(LOGIN_USER, loginWithEmailPassword);
 }
 
+// const loginWithEmailPassword = (data) => async (dispatch) => {
 const loginWithEmailPassword = async (data) => {
   try {
     const { email, password } = data.payload;
@@ -41,9 +44,16 @@ const loginWithEmailPassword = async (data) => {
         },
       }
     );
-    console.log(response)
+    console.log(response);
+
+    localStorage.setItem("userInfo", JSON.stringify(data));
     if (response.status === 200 || response.status === 204) {
       console.log("Logged in successfully.");
+      localStorage.setItem("authUser", JSON.stringify(response.data));
+      // dispatch({
+      //   type: LOGIN_USER_SUCCESS,
+      //   payload: response.data,
+      // });
     }
   } catch (error) {
     console.log(error.response.data.message);
@@ -63,7 +73,7 @@ const loginWithEmailPassword = async (data) => {
 //         const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
 //         if (!loginUser.message) {
 //             localStorage.setItem('user_id', loginUser.user.uid);
-//             yield put(loginUserSuccess(loginUser.user));
+// yield put(loginUserSuccess(loginUser.user));
 //             history.push('/');
 //         } else {
 //             yield put(loginUserError(loginUser.message));

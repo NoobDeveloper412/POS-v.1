@@ -1,62 +1,69 @@
-import React, { Component, Suspense } from 'react';
-import { connect } from 'react-redux';
+import React, { Component, Suspense } from "react";
+import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
-} from 'react-router-dom';
-import { IntlProvider } from 'react-intl';
-import './helpers/Firebase';
-import AppLocale from './lang';
-import ColorSwitcher from './components/common/ColorSwitcher';
-import NotificationContainer from './components/common/react-notifications/NotificationContainer';
-import { isMultiColorActive, isDemo } from './constants/defaultValues';
-import { getDirection } from './helpers/Utils';
+  Redirect,
+} from "react-router-dom";
+import { IntlProvider } from "react-intl";
+import "./helpers/Firebase";
+import AppLocale from "./lang";
+import ColorSwitcher from "./components/common/ColorSwitcher";
+import NotificationContainer from "./components/common/react-notifications/NotificationContainer";
+import { isMultiColorActive, isDemo } from "./constants/defaultValues";
+import { getDirection } from "./helpers/Utils";
 
 const ViewMain = React.lazy(() =>
-  import(/* webpackChunkName: "views" */ './views')
+  import(/* webpackChunkName: "views" */ "./views")
 );
 const ViewApp = React.lazy(() =>
-  import(/* webpackChunkName: "views-app" */ './views/app')
+  import(/* webpackChunkName: "views-app" */ "./views/app")
 );
 const ViewUser = React.lazy(() =>
-  import(/* webpackChunkName: "views-user" */ './views/user')
+  import(/* webpackChunkName: "views-user" */ "./views/user")
 );
 const ViewError = React.lazy(() =>
-  import(/* webpackChunkName: "views-error" */ './views/error')
+  import(/* webpackChunkName: "views-error" */ "./views/error")
+);
+const ViewOrder = React.lazy(() =>
+  import(/* webpackChunkName: "views-order" */ "./views/order")
+);
+const ViewProduct = React.lazy(() =>
+  import(/* webpackChunkName: "views-product" */ "./views/product")
 );
 
 const AuthRoute = ({ component: Component, authUser, ...rest }) => {
   return (
-    <Route
-      {...rest}
-      render={props =>
-        authUser || isDemo ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/user/login',
-              state: { from: props.location }
-            }}
-          />
-        )
-      }
-    />
+    <Route {...rest} render={(props) => <Component {...props} />} />
+    // <Route
+    //   {...rest}
+    //   render={props =>
+    //     authUser || isDemo ? (
+    //       <Component {...props} />
+    //     ) : (
+    //       <Redirect
+    //         to={{
+    //           pathname: '/user/login',
+    //           state: { from: props.location }
+    //         }}
+    //       />
+    //     )
+    //   }
+    // />
   );
-}
+};
 
 class App extends Component {
   constructor(props) {
     super(props);
     const direction = getDirection();
     if (direction.isRtl) {
-      document.body.classList.add('rtl');
-      document.body.classList.remove('ltr');
+      document.body.classList.add("rtl");
+      document.body.classList.remove("ltr");
     } else {
-      document.body.classList.add('ltr');
-      document.body.classList.remove('rtl');
+      document.body.classList.add("ltr");
+      document.body.classList.remove("rtl");
     }
   }
 
@@ -81,19 +88,27 @@ class App extends Component {
                     authUser={loginUser}
                     component={ViewApp}
                   />
-                  <Route
+                  {/* <Route
                     path="/user"
                     render={props => <ViewUser {...props} />}
+                  /> */}
+                  <Route
+                    path="/order"
+                    render={(props) => <ViewOrder {...props} />}
+                  />
+                  <Route
+                    path="/product"
+                    render={(props) => <ViewProduct {...props} />}
                   />
                   <Route
                     path="/error"
                     exact
-                    render={props => <ViewError {...props} />}
+                    render={(props) => <ViewError {...props} />}
                   />
                   <Route
                     path="/"
                     exact
-                    render={props => <ViewMain {...props} />}
+                    render={(props) => <ViewMain {...props} />}
                   />
                   <Redirect to="/error" />
                 </Switch>
@@ -113,7 +128,4 @@ const mapStateToProps = ({ authUser, settings }) => {
 };
 const mapActionsToProps = {};
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(App);
+export default connect(mapStateToProps, mapActionsToProps)(App);
