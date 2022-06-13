@@ -46,6 +46,7 @@ module.exports = {
   "menu.viewProduct": "View Product",
   "menu.product": "Products",
   "menu.order": "Orders",
+  "menu.employees": "Employees",
 
   /* 04.Error Page */
   "pages.error-title": "Ooops... looks like an error occurred!",

@@ -1,5 +1,5 @@
 import React from "react";
-import { mdiPlus, mdiMinus } from '@mdi/js';
+// import { mdiPlus, mdiMinus } from '@mdi/js';
 
 function ListItems(props) {
   return (
@@ -11,10 +11,10 @@ function ListItems(props) {
       </div>
       <div className="listItem__functionButton">
         <button className="button2">
-          <mdiPlus />
+          {/* <mdiPlus /> */}
         </button>
         <button className="button1">
-          <mdiMinus />
+          {/* <mdiMinus /> */}
         </button>
       </div>
     </div>

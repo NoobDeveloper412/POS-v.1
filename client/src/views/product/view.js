@@ -1,5 +1,7 @@
 import React from "react";
-import { MDBDataTableV5 } from "mdbreact";
+// import { MDBDataTableV5 } from "mdbreact";
+import DataTable from 'react-data-table-component';
+import DataTablePagination from "../../components/DatatablePagination";
 
 export default function Pagination() {
   const [datatable, setDatatable] = React.useState({
@@ -505,7 +507,7 @@ export default function Pagination() {
   return (
     <div className="viewProduct__container">
       <h1>Product List</h1>
-      <MDBDataTableV5
+      {/* <MDBDataTableV5
        
         hover
         entriesOptions={[5, 20, 25]}
@@ -514,7 +516,9 @@ export default function Pagination() {
         data={datatable}
 
         fullPagination
-      />
+      /> */}
+      {/* <DataTablePagination /> */}
+      {/* <DataTable columns={datatable.columns} data={datatable.rows}  /> */}
     </div>
   );
 }

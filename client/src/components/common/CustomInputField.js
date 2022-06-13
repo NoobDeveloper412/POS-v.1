@@ -1,10 +1,10 @@
 import React from "react";
-import SearchIcon from "@material-ui/icons/Search";
+// import { mdiFileFind } from '@mdi/js';
 
 function CustomInputField(props) {
   return (
     <div className="header__search">
-      <SearchIcon />
+      {/* <mdiFileFind /> */}
       <input type="text" placeholder={props.placeholder} />
     </div>
   );

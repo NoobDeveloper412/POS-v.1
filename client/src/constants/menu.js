@@ -36,7 +36,19 @@ const data = [
         label: "menu.addProduct",
         to: "/product/add",
       },
+      {
+        icon: "iconsminds-shopping-cart",
+        label: "menu.viewProduct",
+        to: "/product/view",
+      },
     ],
+  },
+  {
+    id: "employees",
+    icon: "iconsminds-men",
+    label: "menu.employees",
+    to: "/employee/view",
+    newWindow: false,
   },
   {
     id: "docs",

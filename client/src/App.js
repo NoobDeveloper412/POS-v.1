@@ -32,6 +32,9 @@ const ViewOrder = React.lazy(() =>
 const ViewProduct = React.lazy(() =>
   import(/* webpackChunkName: "views-product" */ "./views/product")
 );
+const ViewEmployee = React.lazy(() =>
+  import(/* webpackChunkName: "views-employee" */ "./views/employee")
+);
 
 const AuthRoute = ({ component: Component, authUser, ...rest }) => {
   return (
@@ -99,6 +102,10 @@ class App extends Component {
                   <Route
                     path="/product"
                     render={(props) => <ViewProduct {...props} />}
+                  />
+                  <Route
+                    path="/employee"
+                    render={(props) => <ViewEmployee {...props} />}
                   />
                   <Route
                     path="/error"
