@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Modal } from "@material-ui/core";
 import phone from "availity-reactstrap-validation/lib/AvValidator/phone";
+import { Modal } from "reactstrap";
 
 function View() {
   const [open, setOpen] = React.useState(false);
