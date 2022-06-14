@@ -24,5 +24,7 @@ Route::resource('/orders', 'OrdersController');
 Route::resource('/products', 'ProductsController');
 Route::resource('/supplier', 'SupplierController');
 Route::resource('/users', 'UserController');
+Route::delete('/users/{id}', 'UserController@destroy');
+Route::put('/users/{id}', 'UserController@update');
 Route::resource('/companies', 'CompanyController');
 Route::resource('/transactions', 'TransactionController');
