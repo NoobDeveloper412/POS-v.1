@@ -1,3 +1,4 @@
+import Axios from "axios";
 import {
   LOGIN_USER,
   LOGIN_USER_SUCCESS,
@@ -12,6 +13,9 @@ import {
   RESET_PASSWORD,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_ERROR,
+  ADD_EMPLOYEE_REQUEST,
+  ADD_EMPLOYEE_REQUEST_SUCCESS,
+  ADD_EMPLOYEE_REQUEST_FAILURE,
 } from "../actions";
 
 export const loginUser = (email, password) => ({
@@ -70,3 +74,39 @@ export const logoutUser = (history) => ({
   type: LOGOUT_USER,
   payload: { history },
 });
+
+export const addEmployees =
+  (name, email, password, isAdmin, phoneNumber) => async (dispatch) => {
+    try {
+      dispatch({
+        type: ADD_EMPLOYEE_REQUEST,
+      });
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const {data} = await Axios.post(
+        "http://localhost:8000/users",
+        {name, email, password, isAdmin, phoneNumber },
+        config
+      );
+      console.log(data);
+      dispatch({
+        type: ADD_EMPLOYEE_REQUEST_SUCCESS,
+        payload: data,
+      });
+
+      // localStorage.setItem("userInfo", JSON.stringify(reponse));
+    } catch (error) {
+      dispatch({
+        type: ADD_EMPLOYEE_REQUEST_FAILURE,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

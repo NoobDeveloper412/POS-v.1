@@ -1,14 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import phone from "availity-reactstrap-validation/lib/AvValidator/phone";
-import { Modal } from "reactstrap";
+import Modal from "@material-ui/core/Modal";
+import { useDispatch } from "react-redux";
+import { addEmployees } from "../../redux/actions";
+import Axios from "axios";
 
 function View() {
   const [open, setOpen] = React.useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [name, setName] = useState("test");
+  const [email, setEmail] = useState("test1@gmail.com");
+  const [phoneNumber, setPhoneNumber] = useState("12345678");
   const [password, setPassword] = useState("");
+  const [isAdmin, setIsAdmin] = useState(1);
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [allUsers, setAllUsers] = React.useState([]);
 
   const handleClose = () => {
     setOpen(false);
@@ -18,63 +23,68 @@ function View() {
     setOpen(true);
   };
 
+  const dispatch = useDispatch();
+
+  // const userLogin = useSelector((state) => state)
+  // const { loading, error, userInfo } = userLogin
+  // console.log(userLogin)
+
+  const redirect = Location.search ? Location.search.split("=")[1] : "/";
+
+  const getAllusers = () => {
+    Axios.get(`http://localhost:8000/users`, {})
+      .then((response) => {
+        const { data } = JSON.stringify(response.data);
+        console.log(data);
+        setAllUsers(data);
+      })
+      .catch((error) => {
+
+        console.log("Error: ", error);
+      });
+  };
+
+  React.useEffect(() => {
+    getAllusers();
+  }, []);
+
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     history.push(redirect)
+  //   }
+  // }, []);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(addEmployees(name, email, password, isAdmin, phoneNumber));
+  };
+
   return (
     <div className="viewProduct__container">
       <h1>Employee List</h1>
       <div className="viewEmployee__container">
         <div className="viewEmployee__header">
-          <button type="button" onClick={handleOpen}>
-            Click Me to Open Modal
+          <button
+            type="button "
+            className="btn btn-primary mb-5"
+            onClick={handleOpen}
+          >
+            Add Employee
           </button>
           <Modal
             onClose={handleClose}
             open={open}
             style={{
-              position: "absolute",
-              border: "2px solid #000",
-              backgroundColor: "gray",
-              boxShadow: "2px solid black",
-              height: 80,
-              width: 240,
+              // position: "absolute",
+              // border: "2px solid #000",
+              backgroundColor: "whitesmoke",
+              // boxShadow: "2px solid black",
+              height: "60vh",
+              width: "80%",
               margin: "auto",
             }}
           >
-            <h2>How are you?</h2>
-          </Modal>
-        </div>
-        <div className="table table-bordered table-left">
-          <thead>
-            <tr>
-              <th>#ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone Number</th>
-              <th>Position</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </div>
-      </div>
-      {/* <!-- Large modal --> */}
-
-      <div
-        class="modal fade bd-example-modal-lg"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="myLargeModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form>
+            <form onSubmit={submitHandler}>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputEmail4">Name</label>
@@ -125,10 +135,34 @@ function View() {
               <button type="submit" class="btn btn-primary">
                 Add Employee
               </button>
+              <button class="btn ml-3" onClick={handleClose}>
+                Cancel
+              </button>
             </form>
-          </div>
+          </Modal>
+        </div>
+        <div className="table table-bordered table-left">
+          <thead>
+            <tr>
+              <th>#ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Position</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
         </div>
       </div>
+      {/* <!-- Large modal --> */}
     </div>
   );
 }
