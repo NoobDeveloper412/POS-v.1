@@ -4,6 +4,8 @@ import Modal from "@material-ui/core/Modal";
 import { useDispatch } from "react-redux";
 import { addEmployees } from "../../redux/actions";
 import Axios from "axios";
+import DataTable from "react-data-table-component";
+import { MDBDataTableV5 } from "mdbreact";
 
 function View() {
   const [open, setOpen] = React.useState(false);
@@ -13,7 +15,7 @@ function View() {
   const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(1);
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [allUsers, setAllUsers] = React.useState([]);
+  const [allUsers, setAllUsers] = useState([]);
 
   const handleClose = () => {
     setOpen(false);
@@ -34,12 +36,11 @@ function View() {
   const getAllusers = () => {
     Axios.get(`http://localhost:8000/users`, {})
       .then((response) => {
-        const { data } = JSON.stringify(response.data);
+        const data = response.data;
         console.log(data);
         setAllUsers(data);
       })
       .catch((error) => {
-
         console.log("Error: ", error);
       });
   };
@@ -58,7 +59,25 @@ function View() {
     e.preventDefault();
     dispatch(addEmployees(name, email, password, isAdmin, phoneNumber));
   };
-
+  // const data = {
+  const columns = [
+    {
+      name: "Name",
+      field: "name",
+      selector: (row) => row.name,
+    },
+    {
+      name: "email",
+      field: "email",
+      selector: (row) => row.email,
+    },
+    {
+      name: "Role",
+      field: "isAdmin",
+      selector: (row) => row.isAdmin,
+    },
+  ];
+  // };
   return (
     <div className="viewProduct__container">
       <h1>Employee List</h1>
@@ -141,28 +160,41 @@ function View() {
             </form>
           </Modal>
         </div>
-        <div className="table table-bordered table-left">
+        {/* <div className="table table-bordered table-left employee_list">
           <thead>
             <tr>
               <th>#ID</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Phone Number</th>
               <th>Position</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+            {allUsers.map((user, index) => (
+              <tr>
+                <th scope="row">{index}</th>
+                <th>{user.name}</th>
+                <td>{user.email}</td>
+                <td>{user.isAdmin == 2 ? "Admin" : "Cashire"}</td>
+              </tr>
+            ))}
           </tbody>
-        </div>
+        </div> */}
+        {/* <MDBDataTableV5
+          barReverse
+          hover
+          pagingTop
+          headCheckboxID="id2"
+          bodyCheckboxID="checkboxes2"
+          // data={data}
+          getValueCheckBox={(e) => {
+            // showLogs2(e);
+          }}
+          searchTop
+          searchBottom={false}
+        /> */}
+        <DataTable columns={columns} data={allUsers} />
       </div>
-      {/* <!-- Large modal --> */}
     </div>
   );
 }
