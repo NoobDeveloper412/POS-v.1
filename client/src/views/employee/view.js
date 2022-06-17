@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import phone from "availity-reactstrap-validation/lib/AvValidator/phone";
 import Modal from "@material-ui/core/Modal";
 import { useDispatch } from "react-redux";
 import { addEmployees } from "../../redux/actions";

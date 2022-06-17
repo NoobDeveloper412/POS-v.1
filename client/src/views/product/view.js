@@ -1,524 +1,62 @@
+import Axios from "axios";
 import React from "react";
-// import { MDBDataTableV5 } from "mdbreact";
-import DataTable from 'react-data-table-component';
-import DataTablePagination from "../../components/DatatablePagination";
-
+import DataTable from "react-data-table-component";
 export default function Pagination() {
-  const [datatable, setDatatable] = React.useState({
-    columns: [
-      {
-        label: "Product Name",
-        field: "name",
-        width: 150,
-        attributes: {
-          "aria-controls": "DataTable",
-          "aria-label": "Name",
-        },
-      },
-      {
-        label: "Quanitity",
-        field: "quantity",
-        width: 270,
-      },
-      {
-        label: "Price per unit",
-        field: "price",
-        width: 200,
-      },
-      {
-        label: "Alert Stock",
-        field: "alert_stock",
-        sort: "asc",
-        width: 100,
-      },
-      {
-        label: "Tagline",
-        field: "tagline",
-        sort: "disabled",
-        width: 150,
-      },
-      {
-        label: "Description",
-        field: "description",
-        sort: "disabled",
-        width: 100,
-      },
-    ],
-    rows: [
-      {
-        name: "Tiger Nixon",
-        quantity: "System Architect",
-        price: "Edinburgh",
-        alert_stock: "61",
-        tagline: "2011/04/25",
-        description: "$320",
-      },
-      {
-        name: "Garrett Winters",
-        quantity: "Accountant",
-        price: "Tokyo",
-        alert_stock: "63",
-        tagline: "2011/07/25",
-        description: "$170",
-      },
-      {
-        name: "Ashton Cox",
-        quantity: "Junior Technical Author",
-        price: "San Francisco",
-        alert_stock: "66",
-        tagline: "2009/01/12",
-        description: "$86",
-      },
-      {
-        name: "Cedric Kelly",
-        quantity: "Senior Javascript Developer",
-        price: "Edinburgh",
-        alert_stock: "22",
-        tagline: "2012/03/29",
-        description: "$433",
-      },
-      {
-        name: "Airi Satou",
-        quantity: "Accountant",
-        price: "Tokyo",
-        alert_stock: "33",
-        tagline: "2008/11/28",
-        description: "$162",
-      },
-      {
-        name: "Brielle Williamson",
-        quantity: "Integration Specialist",
-        price: "New York",
-        alert_stock: "61",
-        tagline: "2012/12/02",
-        description: "$372",
-      },
-      {
-        name: "Herrod Chandler",
-        quantity: "Sales Assistant",
-        price: "San Francisco",
-        alert_stock: "59",
-        tagline: "2012/08/06",
-        description: "$137",
-      },
-      {
-        name: "Rhona Davidson",
-        quantity: "Integration Specialist",
-        price: "Tokyo",
-        alert_stock: "55",
-        tagline: "2010/10/14",
-        description: "$327",
-      },
-      {
-        name: "Colleen Hurst",
-        quantity: "Javascript Developer",
-        price: "San Francisco",
-        alert_stock: "39",
-        tagline: "2009/09/15",
-        description: "$205",
-      },
-      {
-        name: "Sonya Frost",
-        quantity: "Software Engineer",
-        price: "Edinburgh",
-        alert_stock: "23",
-        tagline: "2008/12/13",
-        description: "$103",
-      },
-      {
-        name: "Jena Gaines",
-        quantity: "price Manalert_stockr",
-        price: "London",
-        alert_stock: "30",
-        tagline: "2008/12/19",
-        description: "$90",
-      },
-      {
-        name: "Quinn Flynn",
-        quantity: "Support Lead",
-        price: "Edinburgh",
-        alert_stock: "22",
-        tagline: "2013/03/03",
-        description: "$342",
-      },
-      {
-        name: "Charde Marshall",
-        quantity: "Regional Director",
-        price: "San Francisco",
-        alert_stock: "36",
-        tagline: "2008/10/16",
-        description: "$470",
-      },
-      {
-        name: "Haley Kennedy",
-        quantity: "Senior Marketing Designer",
-        price: "London",
-        alert_stock: "43",
-        tagline: "2012/12/18",
-        description: "$313",
-      },
-      {
-        name: "Tatyana Fitzpatrick",
-        quantity: "Regional Director",
-        price: "London",
-        alert_stock: "19",
-        tagline: "2010/03/17",
-        description: "$385",
-      },
-      {
-        name: "Michael Silva",
-        quantity: "Marketing Designer",
-        price: "London",
-        alert_stock: "66",
-        tagline: "2012/11/27",
-        description: "$198",
-      },
-      {
-        name: "Paul Byrd",
-        quantity: "Chief Financial pricer (CFO)",
-        price: "New York",
-        alert_stock: "64",
-        tagline: "2010/06/09",
-        description: "$725",
-      },
-      {
-        name: "Gloria Little",
-        quantity: "Systems Administrator",
-        price: "New York",
-        alert_stock: "59",
-        tagline: "2009/04/10",
-        description: "$237",
-      },
-      {
-        name: "Bradley Greer",
-        quantity: "Software Engineer",
-        price: "London",
-        alert_stock: "41",
-        tagline: "2012/10/13",
-        description: "$132",
-      },
-      {
-        name: "Dai Rios",
-        quantity: "Personnel Lead",
-        price: "Edinburgh",
-        alert_stock: "35",
-        tagline: "2012/09/26",
-        description: "$217",
-      },
-      {
-        name: "Jenette Caldwell",
-        quantity: "Development Lead",
-        price: "New York",
-        alert_stock: "30",
-        tagline: "2011/09/03",
-        description: "$345",
-      },
-      {
-        name: "Yuri Berry",
-        quantity: "Chief Marketing pricer (CMO)",
-        price: "New York",
-        alert_stock: "40",
-        tagline: "2009/06/25",
-        description: "$675",
-      },
-      {
-        name: "Caesar Vance",
-        quantity: "Pre-Sales Support",
-        price: "New York",
-        alert_stock: "21",
-        tagline: "2011/12/12",
-        description: "$106",
-      },
-      {
-        name: "Doris Wilder",
-        quantity: "Sales Assistant",
-        price: "Sidney",
-        alert_stock: "23",
-        tagline: "2010/09/20",
-        description: "$85",
-      },
-      {
-        name: "Angelica Ramos",
-        quantity: "Chief Executive pricer (CEO)",
-        price: "London",
-        alert_stock: "47",
-        tagline: "2009/10/09",
-        description: "$1",
-      },
-      {
-        name: "Gavin Joyce",
-        quantity: "Developer",
-        price: "Edinburgh",
-        alert_stock: "42",
-        tagline: "2010/12/22",
-        description: "$92",
-      },
-      {
-        name: "Jennifer Chang",
-        quantity: "Regional Director",
-        price: "Singapore",
-        alert_stock: "28",
-        tagline: "2010/11/14",
-        description: "$357",
-      },
-      {
-        name: "Brenden Wagner",
-        quantity: "Software Engineer",
-        price: "San Francisco",
-        alert_stock: "28",
-        tagline: "2011/06/07",
-        description: "$206",
-      },
-      {
-        name: "Fiona Green",
-        quantity: "Chief Operating pricer (COO)",
-        price: "San Francisco",
-        alert_stock: "48",
-        tagline: "2010/03/11",
-        description: "$850",
-      },
-      {
-        name: "Shou Itou",
-        quantity: "Regional Marketing",
-        price: "Tokyo",
-        alert_stock: "20",
-        tagline: "2011/08/14",
-        description: "$163",
-      },
-      {
-        name: "Michelle House",
-        quantity: "Integration Specialist",
-        price: "Sidney",
-        alert_stock: "37",
-        tagline: "2011/06/02",
-        description: "$95",
-      },
-      {
-        name: "Suki Burks",
-        quantity: "Developer",
-        price: "London",
-        alert_stock: "53",
-        tagline: "2009/10/22",
-        description: "$114",
-      },
-      {
-        name: "Prescott Bartlett",
-        quantity: "Technical Author",
-        price: "London",
-        alert_stock: "27",
-        tagline: "2011/05/07",
-        description: "$145",
-      },
-      {
-        name: "Gavin Cortez",
-        quantity: "Team Leader",
-        price: "San Francisco",
-        alert_stock: "22",
-        tagline: "2008/10/26",
-        description: "$235",
-      },
-      {
-        name: "Martena Mccray",
-        quantity: "Post-Sales support",
-        price: "Edinburgh",
-        alert_stock: "46",
-        tagline: "2011/03/09",
-        description: "$324",
-      },
-      {
-        name: "Unity Butler",
-        quantity: "Marketing Designer",
-        price: "San Francisco",
-        alert_stock: "47",
-        tagline: "2009/12/09",
-        description: "$85",
-      },
-      {
-        name: "Howard Hatfield",
-        quantity: "price Manalert_stockr",
-        price: "San Francisco",
-        alert_stock: "51",
-        tagline: "2008/12/16",
-        description: "$164",
-      },
-      {
-        name: "Hope Fuentes",
-        quantity: "Secretary",
-        price: "San Francisco",
-        alert_stock: "41",
-        tagline: "2010/02/12",
-        description: "$109",
-      },
-      {
-        name: "Vivian Harrell",
-        quantity: "Financial Controller",
-        price: "San Francisco",
-        alert_stock: "62",
-        tagline: "2009/02/14",
-        description: "$452",
-      },
-      {
-        name: "Timothy Mooney",
-        quantity: "price Manalert_stockr",
-        price: "London",
-        alert_stock: "37",
-        tagline: "2008/12/11",
-        description: "$136",
-      },
-      {
-        name: "Jackson Bradshaw",
-        quantity: "Director",
-        price: "New York",
-        alert_stock: "65",
-        tagline: "2008/09/26",
-        description: "$645",
-      },
-      {
-        name: "Olivia Liang",
-        quantity: "Support Engineer",
-        price: "Singapore",
-        alert_stock: "64",
-        tagline: "2011/02/03",
-        description: "$234",
-      },
-      {
-        name: "Bruno Nash",
-        quantity: "Software Engineer",
-        price: "London",
-        alert_stock: "38",
-        tagline: "2011/05/03",
-        description: "$163",
-      },
-      {
-        name: "Sakura Yamamoto",
-        quantity: "Support Engineer",
-        price: "Tokyo",
-        alert_stock: "37",
-        tagline: "2009/08/19",
-        description: "$139",
-      },
-      {
-        name: "Thor Walton",
-        quantity: "Developer",
-        price: "New York",
-        alert_stock: "61",
-        tagline: "2013/08/11",
-        description: "$98",
-      },
-      {
-        name: "Finn Camacho",
-        quantity: "Support Engineer",
-        price: "San Francisco",
-        alert_stock: "47",
-        tagline: "2009/07/07",
-        description: "$87",
-      },
-      {
-        name: "Serge Baldwin",
-        quantity: "Data Coordinator",
-        price: "Singapore",
-        alert_stock: "64",
-        tagline: "2012/04/09",
-        description: "$138",
-      },
-      {
-        name: "Zenaida Frank",
-        quantity: "Software Engineer",
-        price: "New York",
-        alert_stock: "63",
-        tagline: "2010/01/04",
-        description: "$125",
-      },
-      {
-        name: "Zorita Serrano",
-        quantity: "Software Engineer",
-        price: "San Francisco",
-        alert_stock: "56",
-        tagline: "2012/06/01",
-        description: "$115",
-      },
-      {
-        name: "Jennifer Acosta",
-        quantity: "Junior Javascript Developer",
-        price: "Edinburgh",
-        alert_stock: "43",
-        tagline: "2013/02/01",
-        description: "$75",
-      },
-      {
-        name: "Cara Stevens",
-        quantity: "Sales Assistant",
-        price: "New York",
-        alert_stock: "46",
-        tagline: "2011/12/06",
-        description: "$145",
-      },
-      {
-        name: "Hermione Butler",
-        quantity: "Regional Director",
-        price: "London",
-        alert_stock: "47",
-        tagline: "2011/03/21",
-        description: "$356",
-      },
-      {
-        name: "Lael Greer",
-        quantity: "Systems Administrator",
-        price: "London",
-        alert_stock: "21",
-        tagline: "2009/02/27",
-        description: "$103",
-      },
-      {
-        name: "Jonas Alexander",
-        quantity: "Developer",
-        price: "San Francisco",
-        alert_stock: "30",
-        tagline: "2010/07/14",
-        description: "$86",
-      },
-      {
-        name: "Shad Decker",
-        quantity: "Regional Director",
-        price: "Edinburgh",
-        alert_stock: "51",
-        tagline: "2008/11/13",
-        description: "$183",
-      },
-      {
-        name: "Michael Bruce",
-        quantity: "Javascript Developer",
-        price: "Singapore",
-        alert_stock: "29",
-        tagline: "2011/06/27",
-        description: "$183",
-      },
-      {
-        name: "Donna Snider",
-        quantity: "Customer Support",
-        price: "New York",
-        alert_stock: "27",
-        tagline: "2011/01/25",
-        description: "$112",
-      },
-    ],
-  });
+  const [allProducts, setAllProducts] = React.useState([]);
+
+  const getAllProducts = () => {
+    Axios.get(`http://localhost:8000/products`, {})
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+        setAllProducts(data);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
+  };
+
+  React.useEffect(() => {
+    getAllProducts();
+  }, []);
+
+  const columns = [
+    {
+      name: "Product Name",
+      field: "product_name",
+      selector: (row) => row.product_name,
+    },
+    {
+      name: "Product Description",
+      field: "product_description",
+      selector: (row) => row.product_description,
+    },
+    {
+      name: "Product Brand",
+      field: "product_brand",
+      selector: (row) => row.product_brand,
+    },
+    {
+      name: "Product Quanitity",
+      field: "product_quantity",
+      selector: (row) => row.product_quantity,
+    },
+    {
+      name: "Alert Stock",
+      field: "alert_stock",
+      selector: (row) => row.alert_stock,
+    },
+    {
+      name: "Price",
+      field: "price",
+      selector: (row) => row.price,
+    },
+  ];
 
   return (
     <div className="viewProduct__container">
       <h1>Product List</h1>
-      {/* <MDBDataTableV5
-       
-        hover
-        entriesOptions={[5, 20, 25]}
-        entries={10}
-        palert_stocksAmount={4}
-        data={datatable}
-
-        fullPagination
-      /> */}
-      {/* <DataTablePagination /> */}
-      {/* <DataTable columns={datatable.columns} data={datatable.rows}  /> */}
+      <DataTable columns={columns} data={allProducts} />
     </div>
   );
 }

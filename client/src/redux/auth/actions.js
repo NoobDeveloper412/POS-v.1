@@ -16,6 +16,9 @@ import {
   ADD_EMPLOYEE_REQUEST,
   ADD_EMPLOYEE_REQUEST_SUCCESS,
   ADD_EMPLOYEE_REQUEST_FAILURE,
+  ADD_PRODUCT_REQUEST_SUCCESS,
+  ADD_PRODUCT_REQUEST_FAILURE,
+  ADD_PRODUCT_REQUEST,
 } from "../actions";
 
 export const loginUser = (email, password) => ({
@@ -88,9 +91,9 @@ export const addEmployees =
         },
       };
 
-      const {data} = await Axios.post(
+      const { data } = await Axios.post(
         "http://localhost:8000/users",
-        {name, email, password, isAdmin, phoneNumber },
+        { name, email, password, isAdmin, phoneNumber },
         config
       );
       console.log(data);
@@ -103,6 +106,60 @@ export const addEmployees =
     } catch (error) {
       dispatch({
         type: ADD_EMPLOYEE_REQUEST_FAILURE,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+export const addProduct =
+  (
+    title,
+    // tagLine,
+    brand,
+    description,
+    //  instructions,
+    quantity,
+    alertStock,
+    // price,
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: ADD_PRODUCT_REQUEST,
+      });
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const { data } = await Axios.post(
+        "http://localhost:8000/products",
+        {
+          product_name: title,
+          product_brand: brand,
+          // product_tagline:tagLine,
+          product_description: description,
+          // product_instructions:instructions,
+          product_quantity: quantity,
+          alert_stock: alertStock,
+          // price:price,
+        },
+        config
+      );
+      console.log(data);
+      dispatch({
+        type: ADD_PRODUCT_REQUEST_SUCCESS,
+        payload: data,
+      });
+
+      // localStorage.setItem("userInfo", JSON.stringify(reponse));
+    } catch (error) {
+      dispatch({
+        type: ADD_PRODUCT_REQUEST_FAILURE,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

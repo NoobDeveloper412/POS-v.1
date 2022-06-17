@@ -1,27 +1,40 @@
+import Axios from "axios";
 import React, { useState } from "react";
-import { CustomInput, Input } from "reactstrap";
-import ThumbnailImage from "../../components/cards/ThumbnailImage";
-import StateButton from "../../components/StateButton";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../redux/actions";
 
 function Add() {
   const [image, setImage] = useState();
   // "https://smarative.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1562657549-7dfcbd4a97f8%3Fcrop%3Dentropy%26cs%3Dtinysrgb%26fit%3Dmax%26fm%3Djpg%26ixid%3DMnwxMTc3M3wwfDF8c2VhcmNofDN8fGJvcmRlcnxlbnwwfHx8fDE2MjAxNzAwMTM%26ixlib%3Drb-1.2.1%26q%3D80%26w%3D2000&w=1920&q=75 "
 
-  const [title, setTitle] = useState("");
-  const [tagLine, setTagLine] = useState("");
-  const [description, setDescription] = useState("");
-  const [instructions, setInstructions] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [alertStock, setAlertStock] = useState();
-  const [price, setPrice] = useState();
-
+  const [title, setTitle] = useState("Product 1");
+  const [tagLine, setTagLine] = useState("Tagline");
+  const [description, setDescription] = useState("This is description");
+  const [instructions, setInstructions] = useState("Instructions");
+  const [quantity, setQuantity] = useState(1234);
+  const [alertStock, setAlertStock] = useState(67);
+  const [brand, setBrand] = useState("Brand");
+  const [price, setPrice] = useState(1600);
+  const dispatch = useDispatch();
   function handleChange(e) {
     console.log(e.target.files);
     setImage(URL.createObjectURL(e.target.files[0]));
   }
-  function submitHanlder(e) {
+  const submitHanlder = (e) => {
     e.preventDefault();
-  }
+    dispatch(
+      addProduct(
+        title,
+        brand,
+        description,
+        // tagLine,
+        // instructions,
+        quantity,
+        alertStock
+        // price
+      )
+    );
+  };
   return (
     <div className="addProduct">
       <div className="row">
@@ -36,7 +49,7 @@ function Add() {
               />
             </div>
           </form> */}
-          <form onSubmit={submitHanlder}>
+          <form>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="inputEmail4">Product Title</label>
@@ -120,7 +133,11 @@ function Add() {
                 />
               </div>
             </div>
-            <button type="submit" class="btn btn-primary">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              onClick={submitHanlder}
+            >
               Add Product
             </button>
           </form>
@@ -136,7 +153,11 @@ function Add() {
                 role="button"
               >
                 <span class="jss179">
-                  <input type="file" onChange={handleChange}  className="btn-primary " />
+                  <input
+                    type="file"
+                    onChange={handleChange}
+                    className="btn-primary "
+                  />
                   <svg
                     class="jss111 jss160"
                     focusable="false"
