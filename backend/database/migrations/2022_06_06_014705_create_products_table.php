@@ -17,9 +17,12 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string("product_name");
             $table->text("product_description");
+            $table->text("product_tagline");
+            $table->text("product_instructions");
             $table->string("product_brand");
             $table->integer("product_quantity");
             $table->integer("alert_stock")->default("100");
+            $table->integer("price");
             $table->timestamps();
         });
     }
