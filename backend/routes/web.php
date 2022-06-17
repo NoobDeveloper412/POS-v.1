@@ -21,7 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/orders', 'OrdersController');
-Route::resource('/products', 'ProductsController');
+Route::resource('/products', 'ProductController');
+Route::delete('/products/{id}', 'ProductController@destroy');
+Route::put('/products/{id}', 'ProductController@update');
 Route::resource('/supplier', 'SupplierController');
 Route::resource('/users', 'UserController');
 Route::delete('/users/{id}', 'UserController@destroy');

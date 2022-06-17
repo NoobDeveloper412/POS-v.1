@@ -14,7 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $product = Product::all();
+        return response()->json($product);
     }
 
     /**
@@ -35,7 +36,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Product::create($request->all());
+        return response()->json(['message' => 'Product was created.'], 201);
     }
 
     /**
@@ -69,7 +71,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->update($request->all());
+        return response()->json("Sucessfully updated product.");
     }
 
     /**
@@ -80,6 +83,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return response()->json("Sucessfully deleted product.");
     }
 }
