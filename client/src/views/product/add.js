@@ -27,11 +27,11 @@ function Add() {
         title,
         brand,
         description,
-        // tagLine,
-        // instructions,
+        tagLine,
+        instructions,
         quantity,
         alertStock
-        // price
+        price
       )
     );
   };

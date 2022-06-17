@@ -116,13 +116,13 @@ export const addEmployees =
 export const addProduct =
   (
     title,
-    // tagLine,
+    tagLine,
     brand,
     description,
-    //  instructions,
+    instructions,
     quantity,
     alertStock,
-    // price,
+    price
   ) =>
   async (dispatch) => {
     try {
@@ -141,12 +141,12 @@ export const addProduct =
         {
           product_name: title,
           product_brand: brand,
-          // product_tagline:tagLine,
+          product_tagline: tagLine,
           product_description: description,
-          // product_instructions:instructions,
+          product_instructions: instructions,
           product_quantity: quantity,
           alert_stock: alertStock,
-          // price:price,
+          price: price,
         },
         config
       );
