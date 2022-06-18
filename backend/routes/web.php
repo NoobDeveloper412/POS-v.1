@@ -24,6 +24,7 @@ Route::resource('/orders', 'OrdersController');
 Route::resource('/products', 'ProductController');
 Route::delete('/products/{id}', 'ProductController@destroy');
 Route::put('/products/{id}', 'ProductController@update');
+Route::get('/products/{id}', 'ProductController@show');
 Route::resource('/supplier', 'SupplierController');
 Route::resource('/users', 'UserController');
 Route::delete('/users/{id}', 'UserController@destroy');

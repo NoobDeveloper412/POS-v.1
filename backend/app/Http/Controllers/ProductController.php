@@ -42,20 +42,20 @@ class ProductController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Product  $product
+     * @param  int
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        $product = Product::find($id);
+        return response()->json($product);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Responsess
      */
     public function edit(Product $product)
     {
