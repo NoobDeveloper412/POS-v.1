@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from "react";
+import React, {useState, Component, Suspense } from "react";
 import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -13,6 +13,7 @@ import ColorSwitcher from "./components/common/ColorSwitcher";
 import NotificationContainer from "./components/common/react-notifications/NotificationContainer";
 import { isMultiColorActive, isDemo } from "./constants/defaultValues";
 import { getDirection } from "./helpers/Utils";
+
 
 const ViewMain = React.lazy(() =>
   import(/* webpackChunkName: "views" */ "./views")

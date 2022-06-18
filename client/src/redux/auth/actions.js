@@ -19,6 +19,8 @@ import {
   ADD_PRODUCT_REQUEST_SUCCESS,
   ADD_PRODUCT_REQUEST_FAILURE,
   ADD_PRODUCT_REQUEST,
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
 } from "../actions";
 
 export const loginUser = (email, password) => ({
@@ -122,7 +124,9 @@ export const addProduct =
     instructions,
     quantity,
     alertStock,
-    price
+    price,
+    count_in_stock,
+    image
   ) =>
   async (dispatch) => {
     try {
@@ -147,6 +151,8 @@ export const addProduct =
           product_quantity: quantity,
           alert_stock: alertStock,
           price: price,
+          count_in_stock: count_in_stock,
+          image: image,
         },
         config
       );
@@ -167,3 +173,35 @@ export const addProduct =
       });
     }
   };
+
+export const addToCart = (id, qty) => async (dispatch, getState) => {
+  const { data } = await Axios.get(`http://localhost:8000/products/${id}`);
+  console.log(data);
+
+  dispatch({
+    type: CART_ADD_ITEM,
+    payload: {
+      product_name: data.product_name,
+      id: data.id,
+      product_brand: data.product_brand,
+      product_tagline: data.product_tagLine,
+      product_description: data.product_description,
+      product_instructions: data.product_instructions,
+      product_quantity: data.product_quantity,
+      alert_stock: data.alert_stock,
+      price: data.price,
+    },
+  });
+
+  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+};
+
+export const removeFromCart = (id) => (dispatch, getState) => {
+  console.log(id);
+  dispatch({
+    type: CART_REMOVE_ITEM,
+    payload: id,
+  });
+
+  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+};

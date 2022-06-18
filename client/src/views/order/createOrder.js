@@ -1,53 +1,95 @@
-import React, { Component, Fragment } from "react";
-import { CustomInput, Row } from "reactstrap";
-import IntlMessages from "../../helpers/IntlMessages";
-import { Colxx, Separator } from "../../components/common/CustomBootstrap";
-import Breadcrumb from "../../containers/navs/Breadcrumb";
+import React, { useEffect, useState } from "react";
 import GradientCard from "../../components/cards/GradientCard";
-import TodoListItem from "../../components/applications/TodoListItem";
 import ListItems from "../../components/applications/ListItems";
 import CustomInputField from "../../components/common/CustomInputField";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart } from "../../redux/actions";
+import Axios from "axios";
+import { Form, ListGroup, Row } from "reactstrap";
+import { Select } from "@material-ui/core";
 
-export default class OrderDesignScreen extends Component {
-  render() {
-    return (
-      <div className="orderDesignScreen__mainContainer">
-        <div className="row">
-          <div className="col-sm-8">
-            <div className="row orderDesignScreen__mainHeading">
-              <h1>Products</h1>
-              <CustomInputField placeholder="Search for products..." />
-            </div>
-            <div className="cardContainer">
-              <GradientCard
-                imgSrc="https://smarative.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1562657549-7dfcbd4a97f8%3Fcrop%3Dentropy%26cs%3Dtinysrgb%26fit%3Dmax%26fm%3Djpg%26ixid%3DMnwxMTc3M3wwfDF8c2VhcmNofDN8fGJvcmRlcnxlbnwwfHx8fDE2MjAxNzAwMTM%26ixlib%3Drb-1.2.1%26q%3D80%26w%3D2000&w=1920&q=75"
-                children={
-                  <div class="orderDesignScreen__cardText">
-                    <h2>Second card</h2>
-                    <p>Some text</p>
-                  </div>
-                }
-              />
+function OrderDesignScreen({ match, location, history }) {
+  const productId = match.params.id;
 
-              <GradientCard />
-              <GradientCard />
-              <GradientCard />
-              <GradientCard />
-              <GradientCard />
-              <GradientCard />
-              <GradientCard />
-              <GradientCard />
-              <GradientCard />
-              <GradientCard />
-              <GradientCard />
-            </div>
+  const [qty, setQty] = useState(1);
+
+  const dispatch = useDispatch();
+
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+  console.log(cart);
+
+  const [allProducts, setAllProducts] = React.useState([]);
+
+  const getAllProducts = () => {
+    Axios.get(`http://localhost:8000/products`, {})
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+        setAllProducts(data);
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
+  };
+
+  React.useEffect(() => {
+    getAllProducts();
+  }, []);
+
+  useEffect(() => {
+    if (productId) {
+      dispatch(addToCart(productId, qty));
+    }
+  }, [dispatch, productId, qty]);
+
+  return (
+    <div className="orderDesignScreen__mainContainer">
+      <div className="row">
+        <div className="col-sm-8">
+          <div className="row orderDesignScreen__mainHeading mr-5">
+            <h1>Products</h1>
+            <CustomInputField placeholder="Search for products..." />
           </div>
-          <div className="col-sm-4 orderContainer">
-            <h1>Order</h1>
-            <ListItems itemName="Leanne Graham" qty={5} price={100} />
+          <div className="cardContainer">
+            {allProducts.map((item) => (
+              <div
+                className=""
+                onClick={(e) =>
+                  dispatch(addToCart(item.id, Number(e.target.value)))
+                }
+              >
+                <GradientCard
+                  imgSrc="https://smarative.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1562657549-7dfcbd4a97f8%3Fcrop%3Dentropy%26cs%3Dtinysrgb%26fit%3Dmax%26fm%3Djpg%26ixid%3DMnwxMTc3M3wwfDF8c2VhcmNofDN8fGJvcmRlcnxlbnwwfHx8fDE2MjAxNzAwMTM%26ixlib%3Drb-1.2.1%26q%3D80%26w%3D2000&w=1920&q=75"
+                  children={
+                    <div class="orderDesignScreen__cardText text-primary">
+                      <h4>{item.product_name}</h4>
+                      <p>{item.product_description}</p>
+                      {/* <p>{item.product_brand}</p> */}
+                      <p>{item.price}</p>
+                      {/* <p>{item.count_in_stock}</p> */}
+                    </div>
+                  }
+                />
+              </div>
+            ))}
           </div>
         </div>
+        <div className="col-sm-4 orderContainer">
+          <h1>Order</h1>
+          {cartItems.map((item) => (
+            <ListItems
+              key={item.id}
+              itemName={item.product_name}
+              qty={1}
+              price={item.price}
+              productId={item.id}
+            />
+          ))}
+        </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+export default OrderDesignScreen;

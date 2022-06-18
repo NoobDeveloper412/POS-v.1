@@ -16,14 +16,15 @@ const data = [
     id: "order",
     icon: "iconsminds-bucket",
     label: "menu.order",
-    to: "/order/view",
-    subs: [
-      {
-        icon: "simple-icon-paper-plane",
-        label: "menu.createOrder",
-        to: "/order/create",
-      },
-    ],
+    newWindow: false,
+    to: "/order/create",
+    // subs: [
+    //   {
+    //     icon: "simple-icon-paper-plane",
+    //     label: "menu.createOrder",
+    //     to: "/order/create",
+    //   },
+    // ],
   },
   {
     id: "product",

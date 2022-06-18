@@ -47,6 +47,11 @@ export default function Pagination() {
       selector: (row) => row.alert_stock,
     },
     {
+      name: "In Stock",
+      field: "count_in_stock",
+      selector: (row) => row.count_in_stock,
+    },
+    {
       name: "Price",
       field: "price",
       selector: (row) => row.price,

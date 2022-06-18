@@ -4,8 +4,9 @@ import { useDispatch } from "react-redux";
 import { addProduct } from "../../redux/actions";
 
 function Add() {
-  const [image, setImage] = useState();
-  // "https://smarative.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1562657549-7dfcbd4a97f8%3Fcrop%3Dentropy%26cs%3Dtinysrgb%26fit%3Dmax%26fm%3Djpg%26ixid%3DMnwxMTc3M3wwfDF8c2VhcmNofDN8fGJvcmRlcnxlbnwwfHx8fDE2MjAxNzAwMTM%26ixlib%3Drb-1.2.1%26q%3D80%26w%3D2000&w=1920&q=75 "
+  const [image, setImage] = useState(
+    "https://smarative.com/_next/image?url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1562657549-7dfcbd4a97f8%3Fcrop%3Dentropy%26cs%3Dtinysrgb%26fit%3Dmax%26fm%3Djpg%26ixid%3DMnwxMTc3M3wwfDF8c2VhcmNofDN8fGJvcmRlcnxlbnwwfHx8fDE2MjAxNzAwMTM%26ixlib%3Drb-1.2.1%26q%3D80%26w%3D2000&w=1920&q=75 "
+  );
 
   const [title, setTitle] = useState("Product 1");
   const [tagLine, setTagLine] = useState("Tagline");
@@ -15,6 +16,7 @@ function Add() {
   const [alertStock, setAlertStock] = useState(67);
   const [brand, setBrand] = useState("Brand");
   const [price, setPrice] = useState(1600);
+  const [count_in_stock, setCount_in_stock] = useState(23);
   const dispatch = useDispatch();
   function handleChange(e) {
     console.log(e.target.files);
@@ -30,8 +32,10 @@ function Add() {
         tagLine,
         instructions,
         quantity,
-        alertStock
-        price
+        alertStock,
+        price,
+        count_in_stock,
+        image
       )
     );
   };
