@@ -37,11 +37,6 @@ export default function Pagination() {
       selector: (row) => row.product_brand,
     },
     {
-      name: "Product Quanitity",
-      field: "product_quantity",
-      selector: (row) => row.product_quantity,
-    },
-    {
       name: "Alert Stock",
       field: "alert_stock",
       selector: (row) => row.alert_stock,

@@ -9,15 +9,13 @@ function Add() {
   );
 
   const [title, setTitle] = useState("Product 1");
-  const [tagLine, setTagLine] = useState("Tagline");
   const [description, setDescription] = useState("This is description");
-  const [instructions, setInstructions] = useState("Instructions");
-  const [quantity, setQuantity] = useState(1234);
   const [alertStock, setAlertStock] = useState(67);
   const [brand, setBrand] = useState("Brand");
   const [price, setPrice] = useState(1600);
-  const [count_in_stock, setCount_in_stock] = useState(23);
+  const [count_in_stock, setCount_in_stock] = useState(20);
   const dispatch = useDispatch();
+
   function handleChange(e) {
     console.log(e.target.files);
     setImage(URL.createObjectURL(e.target.files[0]));
@@ -29,9 +27,6 @@ function Add() {
         title,
         brand,
         description,
-        tagLine,
-        instructions,
-        quantity,
         alertStock,
         price,
         count_in_stock,
@@ -67,14 +62,14 @@ function Add() {
                 />
               </div>
               <div class="form-group col-md-6">
-                <label for="inputPassword4">Tagline</label>
+                <label for="inputPassword4">Brand</label>
                 <input
                   type="text"
                   class="form-control"
                   id="inputPassword4"
-                  placeholder="Tagline"
-                  value={tagLine}
-                  onChange={(e) => setTagLine(e.target.value)}
+                  placeholder="Brand"
+                  value={brand}
+                  onChange={(e) => setBrand(e.target.value)}
                 />
               </div>
             </div>
@@ -90,47 +85,31 @@ function Add() {
               />
             </div>
             <div class="form-group">
-              <label for="inputAddress2">Usage Instructions (Optional)</label>
+              <label for="inputAddress2">Alert Stock</label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 id="inputAddress2"
-                value={instructions}
-                onChange={(e) => setInstructions(e.target.value)}
-                placeholder="Instructions"
+                value={alertStock}
+                onChange={(e) => setAlertStock(e.target.value)}
+                placeholder="Alert Stock"
               />
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label for="inputCity">Quantity</label>
+                <label for="inputCity">In Stock</label>
                 <input
                   type="number"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
+                  value={count_in_stock}
+                  onChange={(e) => setCount_in_stock(e.target.value)}
                   className="form-control"
                   id="inputCity"
                 />
               </div>
-              <div class="form-group col-md-4">
-                <label for="inputState">Alert Stock</label>
-                <select
-                  id="inputState"
-                  className="form-control"
-                  value={alertStock}
-                  onChange={(e) => setAlertStock(e.target.value)}
-                >
-                  <option selected>Choose...</option>
-                  <option>10</option>
-                  <option>20</option>
-                  <option>30</option>
-                  <option>40</option>
-                  <option>50</option>
-                </select>
-              </div>
               <div class="form-group col-md-2">
                 <label for="inputZip">Price/unit in PKR</label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
