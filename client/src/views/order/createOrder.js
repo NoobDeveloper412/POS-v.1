@@ -17,15 +17,16 @@ function OrderDesignScreen({ match, location, history }) {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-  console.log(cart);
+  // console.log(cart);
 
   const [allProducts, setAllProducts] = React.useState([]);
+  const [bill, setBill] = useState(0);
 
   const getAllProducts = () => {
     Axios.get(`http://localhost:8000/products`, {})
       .then((response) => {
         const data = response.data;
-        console.log(data);
+        // console.log(data);
         setAllProducts(data);
       })
       .catch((error) => {
@@ -41,7 +42,8 @@ function OrderDesignScreen({ match, location, history }) {
     if (productId) {
       dispatch(addToCart(productId, qty));
     }
-  }, [dispatch, productId, qty]);
+    setBill(cartItems.reduce((a, v) => (a = a + v.price), 0));
+  }, [cartItems, dispatch, productId, qty]);
 
   return (
     <div className="orderDesignScreen__mainContainer">
@@ -86,6 +88,11 @@ function OrderDesignScreen({ match, location, history }) {
               productId={item.id}
             />
           ))}
+          <div className="listItem">
+            <p>{"Total Bill: "+bill}</p>
+            <div className="listItem__detailContainer"></div>
+            <div className="listItem__functionButton"></div>
+          </div>
         </div>
       </div>
     </div>
