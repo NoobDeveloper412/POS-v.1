@@ -20,7 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('/orders', 'OrdersController');
+Route::resource('/orders', 'OrderController');
 Route::resource('/products', 'ProductController');
 Route::delete('/products/{id}', 'ProductController@destroy');
 Route::put('/products/{id}', 'ProductController@update');
