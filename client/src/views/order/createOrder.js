@@ -7,6 +7,7 @@ import { addToCart, removeFromCart } from "../../redux/actions";
 import Axios from "axios";
 import { Form, ListGroup, Row } from "reactstrap";
 import { Select } from "@material-ui/core";
+import { createOrder } from "../../redux/orders/actions";
 
 function OrderDesignScreen({ match, location, history }) {
   const productId = match.params.id;
@@ -15,9 +16,8 @@ function OrderDesignScreen({ match, location, history }) {
 
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart;
-  // console.log(cart);
+  const cart = useSelector((state) => state);
+  const { cartItems } = cart.cart;
 
   const [allProducts, setAllProducts] = React.useState([]);
   const [bill, setBill] = useState(0);
@@ -47,6 +47,28 @@ function OrderDesignScreen({ match, location, history }) {
     );
   }, [cartItems, dispatch, productId, qty]);
 
+  const placeOrder = (e) => {
+    e.preventDefault();
+    // console.log(cart);
+
+    console.log(cartItems);
+    const data = {
+      product_id: cartItems.map((item) => item.id),
+      quantity: cartItems.map((item) => item.product_quantity),
+      unit_price: cartItems.map((item) => item.price),
+      discount: [0, 0],
+      amount: cartItems.map((item) =>
+        [item].reduce((a, v) => (a = a + v["price"] * v["product_quantity"]), 0)
+      ),
+      customer_id: 1,
+      customer_name: "Muhammad Zuhair",
+      payment_method: "cash",
+      paid_amount: "0000",
+      balance: "0000",
+    };
+    console.log(data);
+    dispatch(createOrder(data));
+  };
   return (
     <div className="orderDesignScreen__mainContainer">
       <div className="row">
@@ -89,14 +111,16 @@ function OrderDesignScreen({ match, location, history }) {
               productId={item.id}
             />
           ))}
-          <div className="listItem">
+          <form className="listItem" onSubmit={(e) => placeOrder(e)}>
             <p>{"Total Bill: " + bill}</p>
             <div className="listItem__detailContainer">
               <div className="listItem__functionButton">
-                <button className="btn">Create</button>
+                <button className="btn" type="submit">
+                  Create
+                </button>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

@@ -44,6 +44,7 @@ module.exports = {
   "menu.blank-page": "Blank Page",
   "menu.addProduct": "Add Product",
   "menu.viewProduct": "View Product",
+  "menu.viewOrders": "View Orders",
   "menu.product": "Products",
   "menu.order": "Orders",
   "menu.employees": "Employees",

@@ -18,13 +18,18 @@ const data = [
     label: "menu.order",
     newWindow: false,
     to: "/order/create",
-    // subs: [
-    //   {
-    //     icon: "simple-icon-paper-plane",
-    //     label: "menu.createOrder",
-    //     to: "/order/create",
-    //   },
-    // ],
+    subs: [
+      {
+        icon: "simple-icon-paper-plane",
+        label: "menu.createOrder",
+        to: "/order/create",
+      },
+      {
+        icon: "iconsminds-order",
+        label: "menu.viewOrders",
+        to: "/order/view",
+      },
+    ],
   },
   {
     id: "product",

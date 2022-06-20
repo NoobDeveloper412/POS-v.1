@@ -6,9 +6,9 @@ import UserLayout from "../../layout/UserLayout";
 const OrderDesignScreen = React.lazy(() =>
   import(/* webpackChunkName: "create-order" */ "./createOrder")
 );
-// const ViewProduct = React.lazy(() =>
-//   import(/* webpackChunkName: "user-register" */ "./")
-// );
+const ViewOrder = React.lazy(() =>
+  import(/* webpackChunkName: "user-register" */ "./view")
+);
 // const ForgotPassword = React.lazy(() =>
 //   import(/* webpackChunkName: "user-forgot-password" */ './forgot-password')
 // );
@@ -27,10 +27,10 @@ const Order = ({ match }) => {
               path={`${match.url}/create`}
               render={(props) => <OrderDesignScreen {...props} />}
             />
-            {/* <Route
+            <Route
               path={`${match.url}/view`}
-              render={(props) => <ViewProduct {...props} />}
-            /> */}
+              render={(props) => <ViewOrder {...props} />}
+            />
             <Redirect to="/error" />
           </Switch>
         </Suspense>
