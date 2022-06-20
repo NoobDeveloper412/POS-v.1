@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Row, Card, CardTitle, Label, FormGroup, Button } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
@@ -12,7 +12,6 @@ import { useSelector } from "react-redux";
 function Login(props) {
   const [email, setEmail] = useState("Ali@gmail.com");
   const [password, setPassword] = useState("alialiali");
-  const [authUser, setauthUser] = useState();
   const initialValues = { email, password };
 
   // setauthUser(localStorage.getItem("authUser"));

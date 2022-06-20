@@ -1,11 +1,11 @@
-import React from "react";
-import AddIcon from "@material-ui/icons/Add";
+import React, { useState } from "react";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { useDispatch } from "react-redux";
-import { removeFromCart } from "../../redux/actions";
+import { addToCart, removeFromCart } from "../../redux/actions";
 
 function ListItems(props) {
   const dispatch = useDispatch();
+  const [qty, setQty] = useState(1);
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
@@ -16,21 +16,22 @@ function ListItems(props) {
       <p>{props.itemName}</p>
       <div className="listItem__detailContainer">
         <small>PKR.{props.price}</small>
-        <small>No. of item: {props.qty}</small>
+        <small>No. of item: {qty}</small>
       </div>
       <select
         id="inputState"
         className="form-control"
         style={{ width: "70px" }}
-        // value={alertStock}
-        // onChange={(e) => setAlertStock(e.target.value)}
+        value={props.qty}
+        onChange={(e) =>
+          dispatch(addToCart(props.productId, Number(e.target.value)))
+        }
       >
-        <option selected>01</option>
-        <option>10</option>
-        <option>20</option>
-        <option>30</option>
-        <option>40</option>
-        <option>50</option>
+        {[...Array(props.countInStock).keys()].map((x) => (
+          <option key={x + 1} value={x + 1}>
+            {x + 1}
+          </option>
+        ))}
       </select>
       <div className="listItem__functionButton">
         <button
