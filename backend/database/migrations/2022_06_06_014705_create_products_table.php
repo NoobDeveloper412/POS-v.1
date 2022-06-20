@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->text("product_tagline");
             $table->text("product_instructions");
             $table->string("product_brand");
-            $table->integer("product_quantity");
+            // $table->integer("product_quantity");
             $table->integer("alert_stock")->default("100");
             $table->integer("price");
             $table->timestamps();
